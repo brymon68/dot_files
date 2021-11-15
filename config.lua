@@ -1,0 +1,1 @@
+/Users/brycesec/.config/lvim/config.lua
