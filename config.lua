@@ -1,12 +1,10 @@
--- THESE ARE EXAMPLj CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+-- THESE ARE EXAMPLj CONFIGS FEEL  FREE TO CHANGE TO WHATEVER YOU WANT
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
 lvim.transparent_window = false
 -- general
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
 vim.opt.pumheight = 12
 vim.opt.wrap = false
 vim.opt.smartindent  = true
@@ -24,24 +22,19 @@ lvim.keys.normal_mode = {
   ["<leader>U"] = ":UndotreeShow<Cr>"
 }
 vim.cmd("nnoremap <Up> <C-u>")
+
 vim.cmd("nnoremap <Down> <C-d>")
 vim.cmd("nnoremap <Leader>h <C-w>h<cr>")
 vim.cmd("nnoremap <Leader>l <C-w>l<cr>")
 vim.cmd("nnoremap <silent> <Leader>+ :vertical resize +5<CR>")
 vim.cmd("nnoremap <silent> <Leader>- :vertical resize -5<CR>")
 
+
 -- telescope
 lvim.builtin.telescope.defaults.path_display = { "smart" }
 lvim.builtin.telescope.defaults.file_ignore_patterns = { file_ignore_patterns = {"node_modules", "build", "/Library"} }
 lvim.builtin.telescope.defaults.hidden = true
 
--- which_key
-lvim.builtin.which_key.mappings["H"] = {
-  name ="Hop",
-  c = {"<cmd>HopChar1<CR>", "Hop to character"},
-  l = {"<cmd>HopLine<CR>", "Hop to line"},
-  w = {"<cmd>HopWord<CR>", "Hop to word"}
-}
 lvim.builtin.which_key.mappings["r"] = {
   name = "Replace",
   r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
@@ -51,7 +44,6 @@ lvim.builtin.which_key.mappings["r"] = {
 lvim.builtin.which_key.mappings["v"] = {
   "<cmd>vsp<cr>", "Vertical split"
 }
-lvim.builtin.which_key.active=false
 
 
 -- TODO: User Config for predefined plugins
@@ -115,15 +107,7 @@ lvim.plugins = {
     {"mbbill/undotree"},
     {"jremmen/vim-ripgrep"},
     {"junegunn/fzf.vim"},
-    {"nvim-telescope/telescope-fzy-native.nvim"},
     {"windwp/nvim-spectre"},
-    {
-      "phaazon/hop.nvim",
-      event = "BufRead",
-      config = function()
-        require("user.hop").config()
-      end,
-    },
     {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
