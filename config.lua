@@ -17,15 +17,10 @@ lvim.keys.normal_mode = {
   ["<C-l>"] = ":wincmd l <cr>",
   ["U"] = "<C-r><cr>",
   ["<c-s>"] = ":w<cr>",
-  ["<Tab>"] = ":bnext<CR>",
-  ["<S-Tab>"] = ":bprevious<CR>",
   ["<leader>U"] = ":UndotreeShow<Cr>"
 }
-vim.cmd("nnoremap <Up> <C-u>")
 
 vim.cmd("nnoremap <Down> <C-d>")
-vim.cmd("nnoremap <Leader>h <C-w>h<cr>")
-vim.cmd("nnoremap <Leader>l <C-w>l<cr>")
 vim.cmd("nnoremap <silent> <Leader>+ :vertical resize +5<CR>")
 vim.cmd("nnoremap <silent> <Leader>- :vertical resize -5<CR>")
 
@@ -34,16 +29,23 @@ vim.cmd("nnoremap <silent> <Leader>- :vertical resize -5<CR>")
 lvim.builtin.telescope.defaults.path_display = { "smart" }
 lvim.builtin.telescope.defaults.file_ignore_patterns = { file_ignore_patterns = {"node_modules", "build", "/Library"} }
 lvim.builtin.telescope.defaults.hidden = true
+lvim.keys.normal_mode = {
+   -- empowered searches
+    ['<leader>sT'] = "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+    ['<leader>sF'] = ':lua require("telescope.builtin").find_files({hidden=true, no_ignore=true, find_command=rg})<cr>',
 
-lvim.builtin.which_key.mappings["r"] = {
-  name = "Replace",
-  r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-  w = { "<cmd>lua require('spectre').open_visual({select_word=true}) --multiline<cr>", "Replace Word" },
-  f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
 }
-lvim.builtin.which_key.mappings["v"] = {
-  "<cmd>vsp<cr>", "Vertical split"
-}
+
+require("user.which_key").config()
+-- lvim.builtin.which_key.mappings["r"] = {
+--   name = "Replace",
+--   r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
+--   w = { "<cmd>lua require('spectre').open_visual({select_word=true}) --multiline<cr>", "Replace Word" },
+--   f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
+-- }
+-- lvim.builtin.which_key.mappings["v"] = {
+--   "<cmd>vsp<cr>", "Vertical split"
+-- }
 
 
 -- TODO: User Config for predefined plugins
@@ -51,12 +53,11 @@ lvim.builtin.which_key.mappings["v"] = {
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
-  "c",
   "javascript",
   "json",
   "lua",
@@ -70,7 +71,7 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
-
+lvim.builtin.treesitter.rainbow.enable = true
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -112,9 +113,5 @@ lvim.plugins = {
       "folke/trouble.nvim",
       cmd = "TroubleToggle",
     },
-}
 
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
+}
