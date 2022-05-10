@@ -17,30 +17,22 @@ lvim.keys.normal_mode = {
   ["<C-h>"] = ":wincmd h <cr>",
   ["<C-l>"] = ":wincmd l <cr>",
   ["U"] = "<C-r><cr>",
-  ["<c-s>"] = ":w<cr>",
-  ["<leader>U"] = ":UndotreeShow<Cr>",
-  ["C-="] = ":NvimTreeResize +5<Cr>",
-  ["C--"] = ":NvimTreeResize -5<Cr>",
-}
-
-vim.cmd("nnoremap <Down> <C-d>")
-vim.cmd("nnoremap <Up> <C-u>")
-vim.cmd("nnoremap <silent> <Leader>+ :vertical resize +5<CR>")
-vim.cmd("nnoremap <silent> <Leader>- :vertical resize -5<CR>")
-
-
-lvim.keys.normal_mode = {
-  -- empowered searches
   ['<leader>sT'] = "<cmd>Telescope current_buffer_fuzzy_find<CR>",
   ['<leader>sF'] = ':lua require("telescope.builtin").find_files({hidden=true, file_ignore_patterns = {"node_modules", "build", ".git"},  no_ignore=true, find_command=rg})<cr>',
-  ['<leader>='] = "<cmd>NvimTreeResize +5<CR>",
-  ['<leader>-'] = "<cmd>NvimTreeResize -5<CR>",
+  ['<leader>='] = "<cmd>nvimtreeresize +5<cr>",
+  ['<leader>-'] = "<cmd>nvimtreeresize -5<cr>",
+  ["Down"] = "<C-d>",
+  ["Up"] = "<C-u>"
 }
 
--- visual remaps that dont work?
+
+-- -- visual remaps
 lvim.keys.visual_mode = {
   ["<C-j>"] = ":m .+1<CR>gv-gv",
-  ["<C-k>"] = ":m .-2<CR>gv-gv"
+  ["<C-k>"] = ":m .-2<CR>gv-gv",
+  ["J"] = ":m '>+1<cr>gv-gv",
+  ["K"] = ":m '<-2<cr>gv-gv",
+  ["p"] = '"_dP'
 }
 
 
@@ -49,7 +41,20 @@ lvim.builtin.telescope.defaults.path_display = { "smart" }
 lvim.builtin.telescope.defaults.file_ignore_patterns = { file_ignore_patterns = { "node_modules", "build", "/Library" } }
 lvim.builtin.telescope.defaults.hidden = true
 
-
+--vim copilot
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.g.copilot_tab_fallback = ""
+local cmp = require "cmp"
+lvim.builtin.cmp.mapping["<C-e>"] = function(fallback)
+  cmp.mapping.abort()
+  local copilot_keys = vim.fn["copilot#Accept"]()
+  if copilot_keys ~= "" then
+    vim.api.nvim_feedkeys(copilot_keys, "i", true)
+  else
+    fallback()
+  end
+end
 
 --require("user.which_key").config()
 
@@ -112,4 +117,5 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   { "folke/tokyonight.nvim" },
+  { "github/copilot.vim" }
 }
