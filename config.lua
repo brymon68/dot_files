@@ -19,10 +19,12 @@ lvim.keys.normal_mode = {
   ["U"] = "<C-r><cr>",
   ['<leader>sT'] = "<cmd>Telescope current_buffer_fuzzy_find<CR>",
   ['<leader>sF'] = ':lua require("telescope.builtin").find_files({hidden=true, file_ignore_patterns = {"node_modules", "build", ".git"},  no_ignore=true, find_command=rg})<cr>',
-  ['<leader>='] = "<cmd>nvimtreeresize +5<cr>",
-  ['<leader>-'] = "<cmd>nvimtreeresize -5<cr>",
+  ['<leader>='] = "<cmd>NvimTreeResize +5<cr>",
+  ['<leader>-'] = "<cmd>NvimTreeResize -5<cr>",
   ["Down"] = "<C-d>",
-  ["Up"] = "<C-u>"
+  ["Up"] = "<C-u>",
+  ['<leader>S'] = ":lua require('spectre').open()<CR>",
+  ['<leader>sw'] = ":lua require('spectre').open_visual({select_word=true})<CR>"
 }
 
 
@@ -117,5 +119,6 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   { "folke/tokyonight.nvim" },
-  { "github/copilot.vim" }
+  { "github/copilot.vim" },
+  { "windwp/nvim-spectre" },
 }
