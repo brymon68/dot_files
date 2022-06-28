@@ -1,14 +1,14 @@
--- THESE ARE EXAMPLj CONFIGS FEEL  FREE TO CHANGE TO WHATEVER YOU WANT
+lvim.log.level             = "warn"
+lvim.format_on_save        = true
+vim.g.catppuccin_flavour   = "frappe"
+lvim.colorscheme           = "catppuccin"
+lvim.transparent_window    = false
 -- general
-lvim.log.level          = "warn"
-lvim.format_on_save     = true
-lvim.colorscheme        = "tokyonight"
-lvim.transparent_window = false
--- general
-vim.opt.pumheight       = 12
-vim.opt.wrap            = false
-vim.opt.smartindent     = true
-vim.opt.modifiable      = true
+vim.opt.pumheight          = 12
+vim.opt.wrap               = false
+vim.opt.smartindent        = true
+vim.opt.modifiable         = true
+lvim.builtin.notify.active = true
 
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -121,4 +121,5 @@ lvim.plugins = {
   { "folke/tokyonight.nvim" },
   { "github/copilot.vim" },
   { "windwp/nvim-spectre" },
+  { "catppuccin/nvim" },
 }
