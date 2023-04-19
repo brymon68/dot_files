@@ -210,7 +210,7 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   {
-    "navarasu/onedark.nvim",
+    "brymon68/onedark.nvim",
   }
 }
 
