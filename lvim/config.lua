@@ -21,6 +21,8 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<S-h>"] = false
 lvim.keys.normal_mode["<S-l>"] = false
+lvim.keys.normal_mode["gp"] = ":lua require('goto-preview').goto_preview_type_definition()<cr>"
+lvim.keys.normal_mode["gw"] = ":lua require('goto-preview').close_all_win()<cr>"
 lvim.keys.normal_mode["<leader>-"] = ":vertical resize -5<cr>"
 lvim.keys.normal_mode["<leader>="] = ":vertical resize +5<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":bnext<cr>"
@@ -42,6 +44,21 @@ lvim.builtin.telescope.defaults.file_ignore_patterns = {
   "env/",
   "node_modules/",
 }
+-- lvim.builtin.telescope.defaults.layout_config.width = .95
+-- lvim.builtin.telescope.defaults.layout_config.height = .60
+lvim.builtin.telescope.defaults.layout_config = {
+  width = 0.9,
+  height = 0.8,
+  preview_height = 0.78,
+  horizontal = {
+    prompt_position = "top",
+    preview_width = .6
+  }
+}
+lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
+lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 120
+
+
 
 --alpha
 lvim.builtin.alpha.dashboard.section.header.val = {
@@ -54,13 +71,13 @@ lvim.builtin.alpha.dashboard.section.header.val = {
   [[  \/__/    \/_/\/_/\/_/\/_/      \/_//_/     \/_/]],
 }
 lvim.builtin.alpha.dashboard.section.buttons.entries = {
-  { "p", "  Recent projects", "<cmd>lua require('telescope').extensions.projects.projects()<CR>" },
-  { "n", "  New File",        "<CMD>ene!<CR>" },
-  { "f", "  Find file",
+  { "p", "  Recent projects",                "<cmd>lua require('telescope').extensions.projects.projects()<CR>" },
+  { "n", lvim.icons.ui.NewFile .. "  New File", "<CMD>ene!<CR>" },
+  { "f", lvim.icons.ui.FindFile .. "  Find File",
     '<cmd>lua require("telescope.builtin").find_files { find_command = { "rg", "--color=never", "--files" }, }<CR>' },
-  { "t", "  Search text",        ":Telescope live_grep <CR>" },
-  { "e", "  Edit Configuration", "<CMD>edit " .. require("lvim.config"):get_user_config_path() .. " <CR>" },
-  { "q", "  Quit Neovim",        ":qa<CR>" }
+  { "t", "  Search text",              ":Telescope live_grep <CR>" },
+  { "e", "  Edit Configuration",       "<CMD>edit " .. require("lvim.config"):get_user_config_path() .. " <CR>" },
+  { "q", lvim.icons.ui.Close .. "  Quit", ":qa<CR>" }
 }
 
 
@@ -75,6 +92,7 @@ lvim.builtin.which_key.mappings["t"] = {
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
 lvim.builtin.which_key.mappings['f'] = {}
+lvim.builtin.which_key.mappings['W'] = ":set warp!<cr>"
 lvim.builtin.which_key.mappings['f'] = {
   name = "Find",
   b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer fuzzyfind" },
@@ -171,10 +189,12 @@ lvim.builtin.terminal.open_mapping = "<c-t>"
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", filetypes = { "python" }, extra_args = { "--line-length", "79" } },
+  { command = "black", filetypes = { "python" }, extra_args = { "--line-length", "60" } },
   -- { command = "isort", filetypes = { "python" } },
   {
-    command = "prettier", filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" }
+    command = "prettier",
+    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "json" },
+    args = { "--print-width", "100" }
 
   },
   {
@@ -211,7 +231,29 @@ formatters.setup {
 lvim.plugins = {
   {
     "brymon68/onedark.nvim",
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
+  {
+    "tpope/vim-surround",
+
+    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
+    -- setup = function()
+    --  vim.o.timeoutlen = 500
+    -- end
+  },
+  {
+    'rmagatti/goto-preview',
+    config = function()
+      require('goto-preview').setup {}
+    end
   }
+
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
