@@ -15,6 +15,7 @@ lvim.colorscheme = "onedark"
 vim.o.timeoutlen = 300
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
+lvim.transparent_window = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -195,7 +196,6 @@ formatters.setup {
     command = "prettier",
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "json" },
     args = { "--print-width", "100" }
-
   },
   {
     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
