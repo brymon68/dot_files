@@ -4,33 +4,32 @@ set PATH /Users/bryce.montano/.nvm/versions/node/v18.0.0/bin:/Users/bryce.montan
 eval (/opt/homebrew/bin/brew shellenv)
 starship init fish | source # https://starship.rs/
 
-set -U fish_greeting # disable fish greeting
+# set -U fish_greeting # disable fish greeting
 # set -U LANG en_US.UTF-8
 # set -U LC_ALL en_US.UTF-8
 
-set -Ux BAT_THEME Catppuccin-mocha # 'sharkdp/bat' cat clone
-set -Ux EDITOR nvim # 'neovim/neovim' text editor
-set -Ux FZF_DEFAULT_COMMAND 'fd --type f \
-  --exclude Pictures \
-  --exclude Movies \
-  --exclude venv \
-  --exclude cache \
-  --exclude .venv \
-  --exclude node_modules \
-  --exclude cache \
-  --exclude Library ' 
+# set -Ux BAT_THEME Catppuccin-mocha # 'sharkdp/bat' cat clone
+# set -Ux EDITOR nvim # 'neovim/neovim' text editor
+# set -Ux FZF_DEFAULT_COMMAND 'fd --type f \
+#   --exclude Pictures \
+#   --exclude Movies \
+#   --exclude venv \
+#   --exclude cache \
+#   --exclude .venv \
+#   --exclude node_modules \
+#   --exclude cache \
+#   --exclude Library ' 
 
-set -gx FZF_CTRL_T_COMMAND 'fd --type f \
-  --exclude Pictures \
-  --exclude Movies \
-  --exclude venv \
-  --exclude cache \
-  --exclude .venv \
-  --exclude node_modules \
-  --exclude cache \
-  --exclude Library ' 
+# set -gx FZF_CTRL_T_COMMAND 'fd --type f \
+#   --exclude Pictures \
+#   --exclude Movies \
+#   --exclude venv \
+#   --exclude cache \
+#   --exclude .venv \
+#   --exclude node_modules \
+#   --exclude cache \
+#   --exclude Library ' 
 
 
-abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
+# abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
 
-neofetch
