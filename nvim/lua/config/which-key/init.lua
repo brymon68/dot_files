@@ -1,0 +1,37 @@
+return {
+  mode = { "n", "v" },
+  [";"] = { ":Alpha<CR>", "Dashboard" },
+  w = { ":w!<CR>", "Save" },
+  q = { ":confirm q<CR>", "Quit" },
+  h = { ":nohlsearch<CR>", "No Highlight" },
+  p = { require("telescope.builtin").lsp_document_symbols, "Document Symbols" },
+  P = { require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols" },
+  f = { require("config.utils").telescope_git_or_file, "Find Files (Root)" },
+  o = { require("telescope.builtin").buffers, "Open Buffer" },
+  W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
+  l = {
+    name = "+LSP",
+    a = { vim.lsp.buf.code_action, "Code Action" },
+    A = { vim.lsp.buf.range_code_action, "Range Code Actions" },
+    s = { vim.lsp.buf.signature_help, "Display Signature Information" },
+    r = { vim.lsp.buf.rename, "Rename all references" },
+    f = { vim.lsp.buf.format, "Format" },
+    i = { require("telescope.builtin").lsp_implementations, "Implementation" },
+    l = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
+    L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
+    w = { require("telescope.builtin").diagnostics, "Diagnostics" },
+    t = { require("telescope").extensions.refactoring.refactors, "Refactor" },
+    c = { require("config.utils").copyFilePathAndLineNumber, "Copy File Path and Line Number" },
+  },
+
+  T = {
+    name = "+Todo",
+    t = { "<cmd>TodoTelescope<cr>", "Todo" },
+    T = { "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme" },
+    x = { "<cmd>TodoTrouble<cr>", "Todo (Trouble)" },
+    X = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr><cr>", "Todo/Fix/Fixme (Trouble)" },
+  },
+  t = {
+    name = "+Tests",
+  },
+}
