@@ -58,9 +58,6 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      experimental = {
-        ghost_text = true,
-      },
       completion = {
         completeopt = "menu,menuone,noinsert",
       },
@@ -98,7 +95,7 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       sources = {
-        { name = "copilot" },
+        -- { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
@@ -107,31 +104,30 @@ return {
         { name = "calc" },
         { name = "emoji" },
         { name = "treesitter" },
-        { name = "crates" },
         { name = "tmux" },
       },
-      formatting = {
-        format = function(entry, vim_item)
-          local lspkind_ok, lspkind = pcall(require, "lspkind")
-          if not lspkind_ok then
-            -- From kind_icons array
-            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-            -- Source
-            vim_item.menu = ({
-              copilot = "[Copilot]",
-              nvim_lsp = "[LSP]",
-              nvim_lua = "[Lua]",
-              luasnip = "[LuaSnip]",
-              buffer = "[Buffer]",
-              latex_symbols = "[LaTeX]",
-            })[entry.source.name]
-            return vim_item
-          else
-            -- From lspkind
-            return lspkind.cmp_format()(entry, vim_item)
-          end
-        end,
-      },
+      -- formatting = {
+      --   format = function(entry, vim_item)
+      --     local lspkind_ok, lspkind = pcall(require, "lspkind")
+      --     if not lspkind_ok then
+      --       -- From kind_icons array
+      --       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+      --       -- Source
+      --       vim_item.menu = ({
+      --         copilot = "[Copilot]",
+      --         nvim_lsp = "[LSP]",
+      --         nvim_lua = "[Lua]",
+      --         luasnip = "[LuaSnip]",
+      --         buffer = "[Buffer]",
+      --         latex_symbols = "[LaTeX]",
+      --       })[entry.source.name]
+      --       return vim_item
+      --     else
+      --       -- From lspkind
+      --       return lspkind.cmp_format()(entry, vim_item)
+      --     end
+      --   end,
+      -- },
     })
   end,
 }
