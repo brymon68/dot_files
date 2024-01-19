@@ -22,6 +22,16 @@ return {
     t = { require("telescope").extensions.refactoring.refactors, "Refactor" },
     c = { require("config.utils").copyFilePathAndLineNumber, "Copy File Path and Line Number" },
   },
+  c = {
+    name = "Copilot",
+    e = { ":Copilot enable<CR>", "Enable copilot" },
+    d = { ":Copilot disable<CR>", "Disable copilot" },
+    -- f = {
+    --   name = "File specific settings",
+    --   e = { ":let b:copilot_enabled=v:true<CR>", "Enable copilot for the current file" },
+    --   d = { ":let b:copilot_enabled=v:false<CR>", "Disable copilot for the current file" },
+    -- },
+  },
 
   T = {
     name = "+Todo",

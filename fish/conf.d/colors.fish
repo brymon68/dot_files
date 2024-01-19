@@ -5,3 +5,4 @@ set -U fish_color_param cyan
 set -U fish_color_redirections yellow
 set -U fish_color_terminators white
 set -U fish_color_valid_path green
+export TERM='xterm-256color'

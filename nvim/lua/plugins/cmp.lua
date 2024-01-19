@@ -53,6 +53,11 @@ return {
     luasnip.config.setup({})
 
     cmp.setup({
+      appearance = {
+        menu = {
+          direction = "above",
+        },
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -64,8 +69,8 @@ return {
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-j>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete({}),
         ["<CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
@@ -106,28 +111,33 @@ return {
         { name = "treesitter" },
         { name = "tmux" },
       },
-      -- formatting = {
-      --   format = function(entry, vim_item)
-      --     local lspkind_ok, lspkind = pcall(require, "lspkind")
-      --     if not lspkind_ok then
-      --       -- From kind_icons array
-      --       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-      --       -- Source
-      --       vim_item.menu = ({
-      --         copilot = "[Copilot]",
-      --         nvim_lsp = "[LSP]",
-      --         nvim_lua = "[Lua]",
-      --         luasnip = "[LuaSnip]",
-      --         buffer = "[Buffer]",
-      --         latex_symbols = "[LaTeX]",
-      --       })[entry.source.name]
-      --       return vim_item
-      --     else
-      --       -- From lspkind
-      --       return lspkind.cmp_format()(entry, vim_item)
-      --     end
-      --   end,
-      -- },
+      formatting = {
+        expandable_indicator = true,
+        format = function(entry, vim_item)
+          local lspkind_ok, lspkind = pcall(require, "lspkind")
+          if not lspkind_ok then
+            -- From kind_icons array
+            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+            -- width
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 20)
+            vim_item.menu = ""
+            vim_item.kind = ""
+            -- Source
+            vim_item.menu = ({
+              nvim_lsp = "[LSP]",
+              copilot = "[Copilot]",
+              nvim_lua = "[Lua]",
+              luasnip = "[LuaSnip]",
+              buffer = "[Buffer]",
+              latex_symbols = "[LaTeX]",
+            })[entry.source.name]
+            return vim_item
+          else
+            -- From lspkind
+            return lspkind.cmp_format()(entry, vim_item)
+          end
+        end,
+      },
     })
   end,
 }

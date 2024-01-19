@@ -17,12 +17,12 @@ return {
             open = "<M-CR>",
           },
           layout = {
-            position = "bottom", -- | top | left | right
+            position = "right", -- | top | left | right
             ratio = 0.4,
           },
         },
         suggestion = {
-          enabled = false,
+          enabled = true,
           auto_trigger = true,
           debounce = 75,
           keymap = {
