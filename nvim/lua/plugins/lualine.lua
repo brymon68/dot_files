@@ -49,7 +49,7 @@ return {
         lualine_x = {
           "fancy_lsp_servers",
           "fancy_formatters",
-          "progress",
+          "location",
         },
         lualine_y = {},
         lualine_z = {},
