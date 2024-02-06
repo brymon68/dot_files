@@ -116,6 +116,13 @@ local config = {
 		},
 
 		{
+			key = "z",
+			mods = "CMD",
+			action = act({
+				SendString = "nvim $(find ~/workplace -type f | grep -vE '/(node_modules|.venv)/' | fzf)\n",
+			}),
+		},
+		{
 			mods = "CTRL|SHIFT",
 			key = "Tab",
 			action = act.Multiple({
