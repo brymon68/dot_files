@@ -3,19 +3,9 @@ return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
-
-    -- Adds a number of user-friendly snippets
-    "rafamadriz/friendly-snippets",
-
-    -- Adds vscode-like pictograms
-    "onsails/lspkind.nvim",
   },
   config = function()
     local cmp = require("cmp")
@@ -100,16 +90,12 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       sources = {
-        -- { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
-        { name = "calc" },
-        { name = "emoji" },
         { name = "treesitter" },
-        { name = "tmux" },
       },
       formatting = {
         expandable_indicator = true,
@@ -125,7 +111,6 @@ return {
             -- Source
             vim_item.menu = ({
               nvim_lsp = "[LSP]",
-              copilot = "[Copilot]",
               nvim_lua = "[Lua]",
               luasnip = "[LuaSnip]",
               buffer = "[Buffer]",

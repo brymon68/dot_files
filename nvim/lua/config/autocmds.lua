@@ -24,3 +24,28 @@ end
 
 -- Set up autocmd to trigger the hover window
 vim.api.nvim_command("autocmd FileType lsp_hover lua open_hover_window()")
+
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   group = vim.api.nvim_create_augroup("RunPyTests", { clear = true }),
+--   pattern = "test*.py",
+--   callback = function()
+--     vim.api.nvim_buf_set_lines(0, 0, -1, false, {
+--       "let s:job = jobstart('python -m unittest ' .. expand('%:p'), {",
+--       "  \\ 'on_stdout': function(_, data)",
+--       "  \\   call append(line('$'), data)",
+--       "  \\ end,",
+--       "  \\ 'on_stderr': function(_, data)",
+--       "  \\   call append(line('$'), data)",
+--       "  \\ end,",
+--       "  \\ })",
+--     })
+--     vim.fn.jobstart("python -m unittest " .. vim.fn.expand("%:p"), {
+--       on_stdout = function(_, data)
+--         vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
+--       end,
+--       on_stderr = function(_, data)
+--         vim.api.nvim_buf_set_lines(0, -1, -1, false, data)
+--       end,
+--     })
+--   end,
+-- })

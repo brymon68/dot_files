@@ -1,12 +1,9 @@
 return {
   mode = { "n", "v" },
-  [";"] = { ":Alpha<CR>", "Dashboard" },
   w = { ":w!<CR>", "Save" },
   h = { ":nohlsearch<CR>", "No Highlight" },
   p = { require("telescope.builtin").lsp_document_symbols, "Document Symbols" },
-  P = { require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols" },
   f = { require("config.utils").telescope_git_or_file, "Find Files (Root)" },
-  o = { require("telescope.builtin").buffers, "Open Buffer" },
   W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
   l = {
     name = "+LSP",
@@ -19,28 +16,7 @@ return {
     l = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
     L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
     w = { require("telescope.builtin").diagnostics, "Diagnostics" },
-    t = { require("telescope").extensions.refactoring.refactors, "Refactor" },
+    -- t = { require("telescope").extensions.refactoring.refactors, "Refactor" },
     c = { require("config.utils").copyFilePathAndLineNumber, "Copy File Path and Line Number" },
-  },
-  c = {
-    name = "Copilot",
-    e = { ":Copilot enable<CR>", "Enable copilot" },
-    d = { ":Copilot disable<CR>", "Disable copilot" },
-    -- f = {
-    --   name = "File specific settings",
-    --   e = { ":let b:copilot_enabled=v:true<CR>", "Enable copilot for the current file" },
-    --   d = { ":let b:copilot_enabled=v:false<CR>", "Disable copilot for the current file" },
-    -- },
-  },
-
-  T = {
-    name = "+Todo",
-    t = { "<cmd>TodoTelescope<cr>", "Todo" },
-    T = { "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme" },
-    x = { "<cmd>TodoTrouble<cr>", "Todo (Trouble)" },
-    X = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr><cr>", "Todo/Fix/Fixme (Trouble)" },
-  },
-  t = {
-    name = "+Tests",
   },
 }

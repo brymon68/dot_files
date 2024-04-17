@@ -9,16 +9,13 @@ return {
     config = function()
       local mason_null_ls = require("mason-null-ls")
       local null_ls = require("null-ls")
-
       local null_ls_utils = require("null-ls.utils")
 
       mason_null_ls.setup({
         ensure_installed = {
           "prettier", -- prettier formatter
           "stylua", -- lua formatter
-          "eslint_d", -- js linter
-          "shellcheck", -- shell linter
-          "yamllint", -- yaml linter
+          -- "eslint_d", -- js linter
           "black", -- python formatter
         },
       })
@@ -38,13 +35,13 @@ return {
           formatting.black,
           formatting.terraform_fmt,
           -- diagnostics.eslint_d,
-          diagnostics.eslint_d.with({ -- js/ts linter
-            condition = function(utils)
-              return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
-            end,
-          }),
+          -- diagnostics.eslint_d.with({ -- js/ts linter
+          --   condition = function(utils)
+          --     return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
+          --   end,
+          -- }),
           code_actions.gitsigns,
-          code_actions.refactoring,
+          -- code_actions.refactoring,
         },
         -- configure format on save
         on_attach = function(current_client, bufnr)
