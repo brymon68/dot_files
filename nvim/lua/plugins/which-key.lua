@@ -5,12 +5,6 @@ return {
   opts = {
     plugins = {
       marks = false, -- shows a list of your marks on ' and `
-      spelling = {
-        enabled = true,
-        suggestions = 20,
-      },
-      -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-      -- No actual key bindings are created
     },
     operators = { gc = "Comments" }, -- show the currently pressed key and its label as a message in the command line
     icons = {
