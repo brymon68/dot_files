@@ -70,8 +70,8 @@ function Theme.setup(config)
 		tab_bar = {
 			background = colors.green,
 			active_tab = {
-				bg_color = "none",
-				fg_color = colors.yellow,
+				bg_color = colors.surface0,
+				fg_color = colors.teal,
 				intensity = "Bold",
 				underline = "None",
 				italic = false,

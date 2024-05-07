@@ -13,7 +13,6 @@ local tab = require("tab")
 local theme = require("theme")
 local colors = require("theme").colors
 local config = {
-
 	font_size = 14,
 	font = wezterm.font("FiraCode Nerd Font Mono"),
 	color_scheme = "Catppuccin Macchiato",
@@ -39,15 +38,10 @@ local config = {
 	window_frame = {
 		font_size = 16,
 		active_titlebar_bg = colors.base,
+		inactive_titlebar_bg = colors.base,
 	},
 }
 
-wezterm.on("window-resized", function()
-	return wezterm.format({
-		{ Foreground = { Color = colors.base } },
-		{ Background = { Color = colors.base } },
-	})
-end)
 tab.setup(config)
 theme.setup(config)
 return config

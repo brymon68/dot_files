@@ -50,7 +50,7 @@ local function get_process(tab)
 			{ Text = "" },
 		},
 		["wget"] = {
-			{ Foregrou = { Color = colors.yellow } },
+			{ Foreground = { Color = colors.yellow } },
 			{ Text = "󰄠" },
 		},
 		["curl"] = {
@@ -108,19 +108,6 @@ function Tab.setup(config)
 	config.hide_tab_bar_if_only_one_tab = false
 
 	wezterm.on("format-tab-title", function(tab)
-		return wezterm.format({
-			{ Text = "  " },
-			{ Text = string.format("%s", tab.tab_index + 1) },
-			"ResetAttributes",
-			{ Text = "  " },
-			{ Text = get_process(tab) },
-			{ Text = " " },
-			{ Text = get_current_working_dir(tab) },
-			{ Foreground = { Color = colors.base } },
-			{ Text = " ▕" },
-		})
-	end)
-	wezterm.on("window-resized", function(tab)
 		return wezterm.format({
 			{ Text = "  " },
 			{ Text = string.format("%s", tab.tab_index + 1) },
