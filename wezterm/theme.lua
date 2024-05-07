@@ -68,10 +68,10 @@ function Theme.setup(config)
 			colors.surface2,
 		},
 		tab_bar = {
-			background = colors.mantle,
+			background = colors.green,
 			active_tab = {
 				bg_color = "none",
-				fg_color = colors.subtext1,
+				fg_color = colors.yellow,
 				intensity = "Bold",
 				underline = "None",
 				italic = false,

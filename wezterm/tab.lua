@@ -102,19 +102,30 @@ local function get_current_working_dir(tab)
 end
 
 function Tab.setup(config)
-	config.tab_bar_at_bottom = true
-	config.use_fancy_tab_bar = false
+	config.use_fancy_tab_bar = true
 	config.tab_max_width = 50
 	config.show_new_tab_button_in_tab_bar = false
-	config.hide_tab_bar_if_only_one_tab = true
+	config.hide_tab_bar_if_only_one_tab = false
 
 	wezterm.on("format-tab-title", function(tab)
 		return wezterm.format({
 			{ Text = "  " },
-			{ Attribute = { Intensity = "Half" } },
 			{ Text = string.format("%s", tab.tab_index + 1) },
 			"ResetAttributes",
+			{ Text = "  " },
+			{ Text = get_process(tab) },
 			{ Text = " " },
+			{ Text = get_current_working_dir(tab) },
+			{ Foreground = { Color = colors.base } },
+			{ Text = " ▕" },
+		})
+	end)
+	wezterm.on("window-resized", function(tab)
+		return wezterm.format({
+			{ Text = "  " },
+			{ Text = string.format("%s", tab.tab_index + 1) },
+			"ResetAttributes",
+			{ Text = "  " },
 			{ Text = get_process(tab) },
 			{ Text = " " },
 			{ Text = get_current_working_dir(tab) },
