@@ -41,13 +41,12 @@ cmd - 5 : yabai -m space --focus 2
 
 
 # increase window size
-rshift + ralt - d : yabai -m window --resize left:+20:0
-rshift + ralt - a : yabai -m window --resize left:-20:0
+ralt + rshift - d : yabai -m window --resize left:+60:0
+ralt + rshift - a : yabai -m window --resize left:-60:0
 
 # decrease window size
 shift + alt - s : yabai -m window --resize bottom:0:-20
 # shift + alt - a : yabai -m window --resize top:0:20
 
 
-# open programs
-cmd - return: open -na /opt/homebrew/bin/alacritty
+rshift + ralt - r : yabai --restart-service
