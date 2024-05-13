@@ -16,6 +16,7 @@ return {
           "prettier", -- prettier formatter
           "stylua", -- lua formatter
           "black", -- python formatter
+          "gofmt",
         },
       })
 
