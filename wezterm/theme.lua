@@ -78,7 +78,7 @@ function Theme.setup(config)
 				strikethrough = false,
 			},
 			inactive_tab = {
-				bg_color = colors.mantle,
+				bg_color = colors.base,
 				fg_color = colors.surface2,
 			},
 			inactive_tab_hover = {
