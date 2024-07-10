@@ -37,7 +37,7 @@ lshift + lalt - 3 : yabai -m window --space 3; yabai -m space --focus 3
 
 
 # fast focus desktop
-cmd - 5 : yabai -m space --focus 2
+cmd - 5 : yabai -m space --focus 1
 
 
 # increase window size
