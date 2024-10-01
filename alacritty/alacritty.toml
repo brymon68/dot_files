@@ -37,7 +37,7 @@ bindings = [
     { key = "K", mods = "Control", chars = "\u0002k" },
     { key = "S", mods = "Command", chars = "\u0002s" }, # run command
     { key = "W", mods = "Command|Shift", chars = "\u0002:kill-session" }, # kill the current pane
-    { key = "N", mods = "Command", chars = "\u0002:new" }, # create new tmux window
+    { key = "N", mods = "Command|Shift", chars = "\u0002:new" }, # create new tmux window
     { key = "R", mods = "Command", chars = "\u0002$" } # rename session
 ]
 
