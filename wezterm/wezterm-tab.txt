@@ -1,1 +1,0 @@
-Window->Select Tab->Activate the tab to the left
