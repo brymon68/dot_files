@@ -2,27 +2,38 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
+ vim.g.mapleader = " "
 
-local opts = { noremap = true, silent = true }
-local map = vim.keymap.set
--- Fast saving
---
-map("n", "<Leader>w", ":write!<CR>", opts)
-map("n", "<Leader>c", ":bw<CR>", opts)
+ local function map(mode, lhs, rhs)
+ 	vim.keymap.set(mode, lhs, rhs, { silent = true})
+ end
 
--- Panes resizing
-map("n", "+", ":vertical resize +5<CR>")
-map("n", "_", ":vertical resize -5<CR>")
-map("n", "=", ":resize +5<CR>")
-map("n", "-", ":resize -5<CR>")
 
--- Map enter to ciw in normal mode
-map("n", "<CR>", "ciw", opts)
-map("n", "<BS>", "ci", opts)
+ -- delete default
+ map({"n", "s" }, "<leader>w", ":write!<CR>")
+ map("n", "<leader>c", ":bw<CR>")
 
--- select all
-map("n", "<C-a>", "ggVG", opts)
+ -- Panes resizing
+ map("n", "+", ":vertical resize +5<CR>")
+ map("n", "_", ":vertical resize -5<CR>")
+ map("n", "=", ":resize +5<CR>")
+ map("n", "-", ":resize -5<CR>")
 
--- write file in current directory
--- :w %:h/<new-file-name>
-map("n", "<C-n>", ":w %:h/", opts)
+ -- Map enter to ciw in normal mode
+ map("n", "<CR>", "ciw" )
+ map("n", "<BS>", "ci")
+
+ -- select all
+ map("n", "<C-a>", "ggVG")
+
+ -- write file in current directory
+ -- :w %:h/<new-file-name>
+ map("n", "<C-n>", ":w %:h/")
+
+
+ -- New Windows
+ map("n", "<leader>o", "<CMD>vsplit<CR>")
+ map("n", "<leader>p", "<CMD>split<CR>")
+
+
+

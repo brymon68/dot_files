@@ -1,3 +1,31 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+local opt = vim.opt
+
+opt.relativenumber = true
+opt.number = true
+
+opt.tabstop = 2
+opt.shiftwidth = 2 -- 2 spaces for indent width
+opt.expandtab = true -- expand tab to spaces
+opt.autoindent = true -- copy indent from current line 
+
+opt.wrap = false
+opt.ignorecase = true -- ignore case when searching
+opt.smartcase = true -- if you incldue mixedcase in search, assumes you want case-sensitive
+
+opt.cursorline = true
+
+opt.termguicolors = true
+opt.signcolumn = "yes"
+
+opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+opt.clipboard:append("unnamedplus") --use system keyboard as default register
+
+opt.splitright = true -- split veritical window to right
+opt.splitbelow = true -- split horizontal windwo to bottom
+opt.ttimeoutlen = 0 -- The time in milliseconds that is waited for a key code or mapped key sequence to complete.
+
+-- turn off swapfile
+opt.swapfile = false
