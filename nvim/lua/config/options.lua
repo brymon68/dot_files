@@ -1,4 +1,3 @@
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 local opt = vim.opt
@@ -9,7 +8,7 @@ opt.number = true
 opt.tabstop = 2
 opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
-opt.autoindent = true -- copy indent from current line 
+opt.autoindent = true -- copy indent from current line
 
 opt.wrap = false
 opt.ignorecase = true -- ignore case when searching
@@ -29,3 +28,7 @@ opt.ttimeoutlen = 0 -- The time in milliseconds that is waited for a key code or
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- undo
+opt.undodir = vim.fn.stdpath("cache") .. "/undo"
+opt.undofile = true -- enable persistent undo
