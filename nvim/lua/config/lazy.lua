@@ -11,15 +11,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({ { import = "plugins" }, {import = "plugins.lsp"}  }, {
-	checker = {
-		enabled = true,
-		notify = false,
-	},
-	change_detection = {
-		notify = false,
-	},
-})
+require("lazy").setup(
+	{ { "LazyVim/LazyVim", import = "lazyvim.plugins" }, { import = "plugins" }, { import = "plugins.lsp" } },
+	{
+		checker = {
+			enabled = true,
+			notify = false,
+		},
+		change_detection = {
+			notify = false,
+		},
+	}
+)
 
-vim.g.bigfile_size=1024*1024*1 -- 1M
-
+vim.g.bigfile_size = 1024 * 1024 * 1 -- 1M

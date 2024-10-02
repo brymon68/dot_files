@@ -38,6 +38,9 @@ return {
 				opts.desc = "Show LSP implementations"
 				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
+				opts.desc = "Show line diagnostics"
+				keymap.set("n", "gl", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
 				opts.desc = "Show LSP type definitions"
 				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
@@ -77,6 +80,23 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
+
+		-- diagnostic design
+		vim.diagnostic.config({
+			title = false,
+			underline = true,
+			virtual_text = true,
+			signs = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				source = "if_many",
+				style = "minimal",
+				border = "rounded",
+				header = "",
+				prefix = "",
+			},
+		})
 
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers

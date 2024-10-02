@@ -20,7 +20,7 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
-opt.clipboard:append("unnamedplus") --use system keyboard as default register
+opt.clipboard = "unnamedplus" --use system keyboard as default register
 
 opt.splitright = true -- split veritical window to right
 opt.splitbelow = true -- split horizontal windwo to bottom

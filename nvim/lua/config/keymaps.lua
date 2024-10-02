@@ -10,7 +10,7 @@ end
 
 -- delete default
 map({ "n", "s" }, "<leader>w", ":write!<CR>")
-map("n", "<leader>c", ":lua require('bufferline').close_buffer()<CR>")
+map("n", "<leader>c", ":bd<cr>")
 
 -- Panes resizing
 map("n", "+", ":vertical resize +5<CR>")
