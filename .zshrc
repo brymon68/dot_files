@@ -28,4 +28,4 @@ alias cd="z"
 #bat
 alias cat="bat"
 
-
+export HOMEBREW_BREWFILE=~/.config/Brewfile.txt

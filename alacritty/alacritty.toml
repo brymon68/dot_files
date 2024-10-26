@@ -20,24 +20,19 @@ program = "/bin/zsh"
 
 [keyboard]
 bindings = [
-    { key = "T", mods = "Command", chars = "\u0002\u0063" },
-    { key = "W", mods = "Command", chars = "\u0002x" }, # kill the current pane
-    { key = "J", mods = "Command", chars = "\u0002\u0054" }, # open t - tmux smart session manager
-    { key = "K", mods = "Command", chars = "\u0002s" }, # open interactive tmux session client
-    { key = "Tab", mods = "Control", chars = "\u0002n" }, # switch to next tmux window
-    { key = "E", mods = "Command", chars = "\u0002\"" }, # split tmux window vertically
-    { key = "E", mods = "Command|Shift", chars = "\u0002%" }, # split tmux window horizontally
-    { key = "{", mods = "Command|Shift", chars = "\u0002p" }, # switch to previous tmux window
-    { key = "}", mods = "Command|Shift", chars = "\u0002n" }, # switch to next tmux window
-    { key = "Comma", mods = "Command", chars = "\u0002," }, # rename the current tmux window
-    { key = "Semicolon", mods = "Command", chars = "\u0002:" }, # enter the tmux command prompt
-    { key = "L", mods = "Control", chars = "\u0002l" },
-    { key = "H", mods = "Control", chars = "\u0002h" },
-    { key = "J", mods = "Control", chars = "\u0002j" },
-    { key = "K", mods = "Control", chars = "\u0002k" },
-    { key = "S", mods = "Command", chars = "\u0002s" }, # run command
-    { key = "W", mods = "Command|Shift", chars = "\u0002:kill-session" }, # kill the current pane
-    { key = "N", mods = "Command|Shift", chars = "\u0002:new" }, # create new tmux window
-    { key = "R", mods = "Command", chars = "\u0002$" } # rename session
+    { key = "T", mods = "Command", chars = "\u0000\u0063" },
+    { key = "W", mods = "Command|Shift", chars = "\u0000x" }, # kill the current pane
+    { key = "J", mods = "Command", chars = "\u0000\u0054" }, # open t - tmux smart session manager
+    { key = "K", mods = "Command", chars = "\u0000s" }, # open interactive tmux session client
+    { key = "Tab", mods = "Control", chars = "\u0000n" }, # switch to next tmux window
+    { key = "E", mods = "Command", chars = "\u0000\"" }, # split tmux window vertically
+    { key = "E", mods = "Command|Shift", chars = "\u0000%" }, # split tmux window horizontally
+    { key = "{", mods = "Command|Shift", chars = "\u0000p" }, # switch to previous tmux window
+    { key = "}", mods = "Command|Shift", chars = "\u0000n" }, # switch to next tmux window
+    { key = "Comma", mods = "Command", chars = "\u0000," }, # rename the current tmux window
+    { key = "Semicolon", mods = "Command", chars = "\u0000:" }, # enter the tmux command prompt
+    { key = "S", mods = "Command", chars = "\u0000s" }, # run command
+    { key = "N", mods = "Command|Shift", chars = "\u0000:new" }, # create new tmux window
+    { key = "R", mods = "Command", chars = "\u0000$" } # rename session
 ]
 

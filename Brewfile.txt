@@ -1,0 +1,26 @@
+
+brew "bat"
+brew "fd"
+brew "fzf"
+brew "git"
+brew "go"
+brew "jq"
+brew "neovim", args: ["HEAD"]
+brew "node"
+brew "nvm"
+brew "tmux"
+brew "ripgrep"
+brew "starship"
+brew "trash-cli"
+brew "wallpaper"
+brew "wget"
+brew "yarn"
+brew "zlib"
+brew "zoxide"
+brew "koekeishiya/formulae/skhd"
+brew "xorpse/formulae/yabai", args: ["HEAD"]
+
+cask "1password"
+cask "alacritty"
+cask "raycast"
+cask "slack"
