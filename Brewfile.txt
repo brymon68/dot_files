@@ -1,5 +1,7 @@
-
+brew "awscli"
+brew "black"
 brew "bat"
+brew "csvkit"
 brew "fd"
 brew "fzf"
 brew "git"
@@ -8,6 +10,8 @@ brew "jq"
 brew "neovim", args: ["HEAD"]
 brew "node"
 brew "nvm"
+brew "poetry"
+brew "prettier"
 brew "tmux"
 brew "ripgrep"
 brew "starship"
@@ -19,6 +23,7 @@ brew "zlib"
 brew "zoxide"
 brew "koekeishiya/formulae/skhd"
 brew "xorpse/formulae/yabai", args: ["HEAD"]
+brew "yadm"
 
 cask "1password"
 cask "alacritty"
