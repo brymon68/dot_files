@@ -17,4 +17,16 @@ function M.parse_hex(int_color)
 	return string.format("#%x", int_color)
 end
 
+function M.get_dir()
+	local handle = io.popen("echo $PWD")
+	if handle ~= nil then
+		local dir = handle:read("*a")
+		handle:close()
+
+		return dir:gsub("\n", "") .. "/"
+	end
+
+	return ""
+end
+
 return M

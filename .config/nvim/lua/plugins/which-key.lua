@@ -7,7 +7,6 @@ return {
 	end,
 	keys = {
 		{ "<leader>w", "<cmd>write!<cr>", desc = "Save file" },
-		{ "<leader>ff", require("config.utils").telescope_git_or_file, desc = "Find Files (root)" },
 		{ "<leader>W", "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
 	},
 }

@@ -1,4 +1,4 @@
-import = [
+general.import = [
   "~/.config/alacritty/catppuccin-macchiato.toml"
 ]
 
@@ -15,13 +15,13 @@ decorations =  "buttonless"
 normal.family = "FiraCode Nerd Font Mono"
 size = 12.0
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [keyboard]
 bindings = [
     { key = "T", mods = "Command", chars = "\u0000\u0063" },
-    { key = "W", mods = "Command|Shift", chars = "\u0000x" }, # kill the current pane
+    { key = "W", mods = "Command", chars = "\u0000x" }, # kill the current pane
     { key = "J", mods = "Command", chars = "\u0000\u0054" }, # open t - tmux smart session manager
     { key = "K", mods = "Command", chars = "\u0000s" }, # open interactive tmux session client
     { key = "Tab", mods = "Control", chars = "\u0000n" }, # switch to next tmux window
@@ -35,4 +35,6 @@ bindings = [
     { key = "N", mods = "Command|Shift", chars = "\u0000:new" }, # create new tmux window
     { key = "R", mods = "Command", chars = "\u0000$" } # rename session
 ]
+
+[terminal]
 
