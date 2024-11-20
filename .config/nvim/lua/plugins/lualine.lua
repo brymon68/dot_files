@@ -8,9 +8,10 @@ return {
 		lualine.setup({
 			sections = {
 				lualine_a = {
-					{ "fancy_mode", width = 7 },
+					{ "fancy_mode", width = 3 },
 				},
 				lualine_b = {
+					{ "filename" },
 					{ "fancy_branch" },
 					{ "fancy_diff" },
 				},
@@ -27,7 +28,6 @@ return {
 				},
 				lualine_y = {
 					"fancy_lsp_servers",
-					"fancy_formatters",
 				},
 			},
 		})

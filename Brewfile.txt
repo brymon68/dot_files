@@ -21,11 +21,10 @@ brew "wget"
 brew "yarn"
 brew "zlib"
 brew "zoxide"
-brew "koekeishiya/formulae/skhd"
-brew "xorpse/formulae/yabai", args: ["HEAD"]
 brew "yadm"
 
 cask "1password"
 cask "alacritty"
 cask "raycast"
 cask "slack"
+cask "nikitabobko/tap/aerospace"
