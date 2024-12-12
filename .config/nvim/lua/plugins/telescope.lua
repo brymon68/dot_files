@@ -22,7 +22,7 @@ return {
 		{
 			"<leader>ff",
 			function()
-				require("telescope.builtin").find_files()
+				require("telescope.builtin").find_files(require("telescope.themes").get_ivy({}))
 			end,
 			desc = "Find Files",
 		},

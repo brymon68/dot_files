@@ -17,6 +17,28 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap -- for conciseness
+		-- Function to show diagnostics and copy to clipboard
+		local function show_and_copy_diagnostic()
+			-- Get diagnostics at current cursor position
+			local line = vim.fn.line(".") - 1
+			local col = vim.fn.col(".") - 1
+			local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+			-- Show the floating diagnostic window
+			vim.diagnostic.open_float()
+
+			-- If diagnostics exist, copy them to clipboard
+			if #diagnostics > 0 then
+				local diagnostic_messages = {}
+				for _, diagnostic in ipairs(diagnostics) do
+					table.insert(diagnostic_messages, diagnostic.message)
+				end
+				-- Join all diagnostic messages with newlines
+				local clipboard_text = table.concat(diagnostic_messages, "\n")
+				-- Copy to system clipboard
+				vim.fn.setreg("+", clipboard_text)
+			end
+		end
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -39,7 +61,7 @@ return {
 				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
 				opts.desc = "Show line diagnostics"
-				keymap.set("n", "gl", vim.diagnostic.open_float, opts) -- show diagnostics for line
+				keymap.set("n", "gl", show_and_copy_diagnostic, opts) -- show diagnostics for line
 
 				opts.desc = "Show LSP type definitions"
 				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions

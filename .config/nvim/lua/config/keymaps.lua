@@ -35,3 +35,15 @@ map("n", "<leader>sh", "<CMD>split<CR>")
 
 -- Close split pane
 map("n", "<leader>sx", ":close<CR>")
+
+-- greatest remap ever --theprimeagen
+map("x", "<leader>p", [["_dP]])
+
+-- Run pytest in toggleterm on current file
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+map("n", "<leader>tt", function()
+	local file_path = vim.fn.expand("%:p")
+	-- Create a new terminal and run pytest
+	require("toggleterm").exec("poetry run pytest -s " .. file_path)
+end)

@@ -6,6 +6,9 @@ return {
 
 		-- configure lualine with modified theme
 		lualine.setup({
+			options = {
+				theme = "catppuccin-macchiato",
+			},
 			sections = {
 				lualine_a = {
 					{ "fancy_mode", width = 3 },

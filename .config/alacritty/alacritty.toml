@@ -33,7 +33,8 @@ bindings = [
     { key = "Semicolon", mods = "Command", chars = "\u0000:" }, # enter the tmux command prompt
     { key = "S", mods = "Command", chars = "\u0000s" }, # run command
     { key = "N", mods = "Command|Shift", chars = "\u0000:new" }, # create new tmux window
-    { key = "R", mods = "Command", chars = "\u0000$" } # rename session
+    { key = "R", mods = "Command", chars = "\u0000$" }, # rename session
+    { key = "G", mods = "Control", chars = "\u0007" }
 ]
 
 [terminal]
