@@ -3,12 +3,9 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons", "meuter/lualine-so-fancy.nvim" },
 	config = function()
 		local lualine = require("lualine")
-
 		-- configure lualine with modified theme
 		lualine.setup({
-			options = {
-				theme = "catppuccin-macchiato",
-			},
+			theme = "catppuccin",
 			sections = {
 				lualine_a = {
 					{ "fancy_mode", width = 3 },
@@ -26,9 +23,7 @@ return {
 					},
 					{ "fancy_searchcount" },
 				},
-				lualine_x = {
-					"fancy_filetype",
-				},
+				lualine_x = {},
 				lualine_y = {
 					"fancy_lsp_servers",
 				},
