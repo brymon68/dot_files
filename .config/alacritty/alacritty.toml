@@ -2,14 +2,13 @@ general.import = [
   "~/.config/alacritty/catppuccin-macchiato.toml"
 ]
 
-
-
 [window]
 
 padding.x = 18
 padding.y = 16
 dynamic_padding= false
 decorations =  "buttonless"
+opacity = 0.85
 
 [font]
 normal.family = "FiraCode Nerd Font Mono"
