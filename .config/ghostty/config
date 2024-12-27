@@ -1,0 +1,26 @@
+theme = dark:catppuccin-macchiato,light:catppuccin-latte
+font-family = "FiraCode Nerd Font Mono"
+macos-titlebar-style = hidden
+macos-window-shadow = false
+cursor-style = block
+clipboard-read = "allow"
+
+
+window-padding-y = 10
+window-padding-x = 10
+
+keybind = command+t=text:\x00c
+keybind = command+w=text:\x00x
+keybind = command+j=text:\x00T
+keybind = command+k=text:\x00s
+keybind = control+tab=text:\x00n
+keybind = command+e=text:\x00"
+keybind = command+shift+e=text:\x00%
+keybind = command+shift+left_bracket=text:\x00p
+keybind = command+shift+right_bracket=text:\x00n
+keybind = command+comma=text:\x00,
+keybind = command+semicolon=text:\x00:
+keybind = command+s=text:\x00s
+keybind = command+shift+n=text:\x00:new
+keybind = command+r=text:\x00$
+keybind = control+g=text:\x07
