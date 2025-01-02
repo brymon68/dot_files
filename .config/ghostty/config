@@ -7,7 +7,7 @@ cursor-style = block
 clipboard-read = "allow"
 
 
-window-padding-y = 10
+window-padding-y = 10,0
 window-padding-x = 10
 
 keybind = command+t=text:\x00c

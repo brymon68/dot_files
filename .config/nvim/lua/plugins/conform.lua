@@ -1,8 +1,9 @@
 return {
 	"stevearc/conform.nvim",
+	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		formatters_by_ft = {
-			python = { "black", "isort" },
+			python = { "isort", "black" },
 			lua = { "stylua" },
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
@@ -12,8 +13,9 @@ return {
 			html = { "prettierd" },
 		},
 		format_on_save = {
-			timeout_ms = 2000,
-			lsp_format = "fallback",
+			timeout_ms = 8000,
+			lsp_fallback = true,
+			async = false,
 		},
 	},
 }
