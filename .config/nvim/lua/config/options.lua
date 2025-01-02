@@ -1,10 +1,9 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 local opt = vim.opt
-local api = vim.api
 
-opt.relativenumber = true
 opt.number = true
+opt.numberwidth = 1
 
 opt.tabstop = 2
 opt.shiftwidth = 2 -- 2 spaces for indent width

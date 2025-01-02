@@ -1,7 +1,7 @@
 return {
 	"akinsho/bufferline.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	after = "catppuccin",
+	after = "tokyonight",
 	config = function()
 		local bufferline = require("bufferline")
 		bufferline.setup({
