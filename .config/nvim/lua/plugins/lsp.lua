@@ -7,6 +7,29 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 		},
 		config = function()
+			local keymap = vim.keymap -- for conciseness
+			-- Function to show diagnostics and copy to clipboard
+			local function show_and_copy_diagnostic()
+				-- Get diagnostics at current cursor position
+				local line = vim.fn.line(".") - 1
+				local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+				-- Show the floating diagnostic window
+				vim.diagnostic.open_float()
+
+				-- If diagnostics exist, copy them to clipboard
+				if #diagnostics > 0 then
+					local diagnostic_messages = {}
+					for _, diagnostic in ipairs(diagnostics) do
+						table.insert(diagnostic_messages, diagnostic.message)
+					end
+					-- Join all diagnostic messages with newlines
+					local clipboard_text = table.concat(diagnostic_messages, "\n")
+					-- Copy to system clipboard
+					vim.fn.setreg("+", clipboard_text)
+				end
+			end
+
 			local lspconfig_defaults = require("lspconfig").util.default_config
 			lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 				"force",
@@ -25,7 +48,7 @@ return {
 					vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
 					vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
 					vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-					vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "View Diagnostics" })
+					vim.keymap.set("n", "gl", show_and_copy_diagnostic, opts)
 					vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 					vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 				end,
