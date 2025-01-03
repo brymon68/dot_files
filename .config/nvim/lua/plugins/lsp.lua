@@ -67,13 +67,46 @@ return {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-path",
+			"onsails/lspkind.nvim",
 		},
 		config = function()
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+			local lspkind = require("lspkind")
 			local cmp_select = { behavior = cmp.SelectBehavior.Insert }
 			cmp.setup({
-				sources = {
+				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "nvim_lua" },
+					{ name = "luasnip" }, -- snippets
+					{ name = "buffer" }, -- text within current buffer
+					{ name = "path" }, -- file system paths
+				}),
+				appearance = {
+					menu = {
+						direction = "above",
+					},
+				},
+
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+				snippet = { -- configure how nvim-cmp interacts with snippet engine
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				formatting = {
+					expandable_indicator = true,
+					fields = { "kind", "abbr", "menu" },
+					format = lspkind.cmp_format({
+						maxwidth = 50,
+						ellipsis_char = "...",
+					}),
+				},
+				completion = {
+					completeopt = "menu,menuone,noinsert",
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),

@@ -5,12 +5,12 @@ return {
 		formatters_by_ft = {
 			python = { "isort", "black" },
 			lua = { "stylua" },
-			javascript = { "prettierd" },
-			typescript = { "prettierd" },
-			json = { "prettierd" },
-			yaml = { "prettierd" },
-			markdown = { "prettierd" },
-			html = { "prettierd" },
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			json = { "prettier" },
+			yaml = { "prettier" },
+			markdown = { "prettier" },
+			html = { "prettier" },
 		},
 		format_on_save = {
 			timeout_ms = 8000,
