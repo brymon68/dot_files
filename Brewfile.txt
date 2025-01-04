@@ -23,6 +23,7 @@ brew "yarn"
 brew "zlib"
 brew "zoxide"
 brew "yadm"
+brew "eza"
 
 cask "1password"
 cask "alacritty"

@@ -24,8 +24,10 @@ export NVM_DIR="$HOME/.nvm"
 # zoxide
 eval "$(zoxide init zsh)"
 alias cd="z" 
+alias list="eza --icons -alh"
 
 #bat
 alias cat="bat"
 
 export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
+export EZA_CONFIG_DIR=~/.config/eza

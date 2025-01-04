@@ -34,6 +34,9 @@ map("n", "-", ":resize -5<CR>")
 -- greatest remap ever --theprimeagen
 map("x", "<leader>p", [["_dP]])
 
+map("n", "<leader>q", ":q!<CR>")
+
+-- Move lines up and down
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 

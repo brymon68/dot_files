@@ -126,8 +126,8 @@ alt-shift-semicolon = 'mode service'
 
 alt-0 = 'balance-sizes'
 alt-shift-r = 'reload-config'
-alt-shift-comma = 'resize width -50'
-alt-shift-period = 'resize width +50'
+alt-comma = 'resize width -200'
+alt-period = 'resize width +200'
 
 # alt-shift-r = 'mode resize'
 # [mode.resize.binding]
