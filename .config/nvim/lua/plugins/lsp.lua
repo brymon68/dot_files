@@ -51,6 +51,7 @@ return {
 					vim.keymap.set("n", "gl", show_and_copy_diagnostic, opts)
 					vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 					vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+					vim.keymap.set("n", "xd", "<cmd> lua vim.diagnostic.disable()<cr>", opts)
 				end,
 			})
 
