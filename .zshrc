@@ -19,6 +19,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 #FZF
+source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # zoxide

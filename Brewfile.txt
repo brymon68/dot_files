@@ -1,4 +1,3 @@
-brew "1password-cli"
 brew "awscli"
 brew "black"
 brew "bat"
@@ -7,6 +6,7 @@ brew "fd"
 brew "fzf"
 brew "git"
 brew "go"
+brew "htop"
 brew "jq"
 brew "neovim", args: ["HEAD"]
 brew "node"
@@ -31,3 +31,4 @@ cask "raycast"
 cask "slack"
 cask "nikitabobko/tap/aerospace"
 cask "ghostty"
+cask "karabiner-elements"`
