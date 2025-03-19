@@ -35,7 +35,7 @@ export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
 export EZA_CONFIG_DIR=~/.config/eza
 
 # pnpm
-export PNPM_HOME="/Users/gondor/Library/pnpm"
+export PNPM_HOME="/Users/$USER/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -43,7 +43,7 @@ esac
 # pnpm end
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/gondor/.lmstudio/bin"
+export PATH="$PATH:/Users/$USER/.lmstudio/bin"
 
 #yazi
 function y() {

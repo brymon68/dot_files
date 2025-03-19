@@ -35,7 +35,8 @@ return {
           hidden     = true,
           layout     = {
             position = "right",
-          }
+          },
+          auto_close = true,
         })
       end,
       desc = "File Explorer"
