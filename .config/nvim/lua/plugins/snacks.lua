@@ -44,12 +44,9 @@ return {
     {
       "<leader>ff",
       function()
-        Snacks.picker.git_files({
-          finder = "git_files",
-          untracked = true
-        })
+        require("config.utils").snacks_git_or_file()
       end,
-      desc = "Find files (Git)"
+      desc = "Find files"
     },
   }
 
