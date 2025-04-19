@@ -3,7 +3,6 @@ return {
   event = { "BufReadPre", "BufWritePre" },
   config = function()
     local conform = require("conform")
-
     conform.setup({
       log_level = vim.log.levels.DEBUG,
       notify_on_error = true,
@@ -19,7 +18,13 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
-        python = { "black" },
+        python = function(bufnr)
+          if require("conform").get_formatter_info("ruff_format", bufnr).available then
+            return { "ruff_format" }
+          else
+            return { "black" }
+          end
+        end,
       },
       format_on_save = {
         lsp_format = "fallback",

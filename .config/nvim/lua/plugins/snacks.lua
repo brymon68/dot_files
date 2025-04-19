@@ -23,7 +23,7 @@ return {
     }
   },
   keys = {
-    { "<leader>ff", function() Snacks.picker.files() end,   desc = "Find Files" },
+    { "<leader>fg", function() Snacks.picker.files() end,   desc = "Find Files" },
     { "<leader>fs", function() Snacks.picker.grep() end,    desc = "Grep" },
     { "<leader>fh", function() Snacks.picker.help() end,    desc = "Help Pages" },
     { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
@@ -40,6 +40,16 @@ return {
         })
       end,
       desc = "File Explorer"
+    },
+    {
+      "<leader>ff",
+      function()
+        Snacks.picker.git_files({
+          finder = "git_files",
+          untracked = true
+        })
+      end,
+      desc = "Find files (Git)"
     },
   }
 
