@@ -23,10 +23,18 @@ return {
     }
   },
   keys = {
-    { "<leader>fg", function() Snacks.picker.files() end,   desc = "Find Files" },
-    { "<leader>fs", function() Snacks.picker.grep() end,    desc = "Grep" },
-    { "<leader>fh", function() Snacks.picker.help() end,    desc = "Help Pages" },
-    { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+    { "<leader>fg", function() Snacks.picker.files() end,                desc = "Find Files" },
+    { "<leader>fs", function() Snacks.picker.grep() end,                 desc = "Grep" },
+    { "<leader>fh", function() Snacks.picker.help() end,                 desc = "Help Pages" },
+    { "<leader>fk", function() Snacks.picker.keymaps() end,              desc = "Keymaps" },
+    { "gd",         function() Snacks.picker.lsp_definitions() end,      desc = "Go to definition" },
+    { "gD",         function() Snacks.picker.lsp_declarations() end,     desc = "Go to definition" },
+    { "gi",         function() Snacks.picker.lsp_implementations() end,  desc = "Go to implementation" },
+    { "gr",         function() Snacks.picker.lsp_references() end,       desc = "Go to references" },
+    { "gI",         function() Snacks.picker.lsp_incoming_calls() end,   desc = "Incoming calls" },
+    { "go",         function() Snacks.picker.lsp_type_definitions() end, desc = "Go to type definition" },
+    { "<leader>ca", function() Snacks.picker.lsp_code_actions() end,     desc = "Code actions" },
+    { "<leader>cR", function() Snacks.rename.rename_file() end,          desc = "Rename File" },
     {
       "<leader>e",
       function()

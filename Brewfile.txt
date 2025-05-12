@@ -1,5 +1,6 @@
 tap "FelixKratz/formulae"
 
+brew "1password-cli"
 brew "awscli"
 brew "black"
 brew "borders"
@@ -24,7 +25,6 @@ brew "zoxide"
 brew "yadm"
 brew "eza"
 
-cask "1password"
 cask "raycast"
 cask "slack"
 cask "nikitabobko/tap/aerospace"
