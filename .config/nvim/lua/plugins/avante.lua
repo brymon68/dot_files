@@ -5,13 +5,17 @@ return {
   opts = {
     -- add any opts here
     -- for example
-    provider = "gemini",
-    gemini = {
-      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-      model = "gemini-2.5-flash-preview-04-17",
-      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      temperature = 0,
-      --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+    provider = "claude",
+    providers = {
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-sonnet-4-20250514",
+        extra_request_body = {
+          max_tokens = 40000,
+          temperature = 0,
+        },
+        -- disable_tools = true,
+      },
     },
     -- provider = "claude",
     -- claude = {

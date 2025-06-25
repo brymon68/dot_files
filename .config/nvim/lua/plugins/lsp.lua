@@ -9,7 +9,15 @@ return {
 
     opts = {
       servers = {
-        lua_ls = {},
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          },
+        },
         gopls = {},
         cssls = {},
         ts_ls = {},
@@ -17,48 +25,20 @@ return {
       },
     },
     config = function(_, opts)
-      -- Function to show diagnostics and copy to clipboard
-      local function show_and_copy_diagnostic()
-        -- Get diagnostics at current cursor position
-        local line = vim.fn.line(".") - 1
-        local diagnostics = vim.diagnostic.get(0, { lnum = line })
-
-        -- Show the floating diagnostic window
-        vim.diagnostic.open_float()
-
-        -- If diagnostics exist, copy them to clipboard
-        if #diagnostics > 0 then
-          local diagnostic_messages = {}
-          for _, diagnostic in ipairs(diagnostics) do
-            table.insert(diagnostic_messages, diagnostic.message)
-          end
-          -- Join all diagnostic messages with newlines
-          local clipboard_text = table.concat(diagnostic_messages, "\n")
-          -- Copy to system clipboard
-          vim.fn.setreg("+", clipboard_text)
-        end
-      end
-      local lspconfig = require("lspconfig")
-      for server, config in pairs(opts.servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts[server].capabilities, if you've defined it
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+      -- 1. helper that adds cmp-capabilities
+      local function with_cmp_capabilities(cfg)
+        cfg = cfg or {}
+        cfg.capabilities =
+            require("blink.cmp").get_lsp_capabilities(cfg.capabilities)
+        return cfg
       end
 
-      vim.api.nvim_create_autocmd("LspAttach", {
-        desc = "LSP actions",
-        callback = function(event)
-          local opts = { buffer = event.buf }
-
-          vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-          vim.keymap.set("n", "gl", show_and_copy_diagnostic, opts)
-        end,
-      })
-
+      ---------------------------------------------------------------------------
+      -- 2. mason
+      ---------------------------------------------------------------------------
       require("mason").setup()
+
       require("mason-lspconfig").setup({
-        automatic_installation = true,
         ensure_installed = {
           "cssls",
           "gopls",
@@ -67,29 +47,49 @@ return {
           "pyright",
         },
       })
-      require("mason-lspconfig").setup_handlers({
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup({})
-        end,
-        ["lua_ls"] = function()
-          require("lspconfig").lua_ls.setup({
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim" },
-                },
-              },
-            },
-            capabilities = require("blink.cmp").get_lsp_capabilities(),
-          })
+
+      -- 3. let mason-lspconfig do *all* the setup for us
+      --    (this replaces your manual `for server in pairs()` loop!)
+      require("mason-lspconfig").setup({
+        -- default handler – runs for every installed server
+        function(server_name)
+          local cfg = vim.tbl_deep_extend(
+            "force",
+            {},                              -- start with an empty table
+            opts.servers[server_name] or {}, -- user-config if any
+            with_cmp_capabilities({})        -- cmp capabilities
+          )
+          require("lspconfig")[server_name].setup(cfg)
         end,
       })
-    end,
+
+      ---------------------------------------------------------------------------
+      -- 4. misc keymap for diagnostics (unchanged)
+      ---------------------------------------------------------------------------
+      local function show_and_copy_diagnostic()
+        local line = vim.fn.line(".") - 1
+        local diagnostics = vim.diagnostic.get(0, { lnum = line })
+        vim.diagnostic.open_float()
+        if #diagnostics > 0 then
+          local msgs = {}
+          for _, d in ipairs(diagnostics) do
+            table.insert(msgs, d.message)
+          end
+          vim.fn.setreg("+", table.concat(msgs, "\n"))
+        end
+      end
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(ev)
+          vim.keymap.set("n", "gl", show_and_copy_diagnostic, { buffer = ev.buf })
+        end,
+      })
+    end
   },
   {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = { 'rafamadriz/friendly-snippets', 'Kaiser-Yang/blink-cmp-avante', },
 
     -- use a release tag to download pre-built binaries
     version = '1.*',
@@ -133,7 +133,14 @@ return {
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'avante', 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+            opts = {}
+          }
+        },
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance

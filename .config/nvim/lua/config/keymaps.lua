@@ -38,6 +38,7 @@ map("n", "-", ":resize -5<CR>")
 map("x", "<leader>p", [["_dP]])
 
 map("n", "<leader>q", ":q!<CR>")
+map("n", "ca", function() vim.lsp.buf.code_action() end)
 
 -- Move lines up and down
 map("v", "J", ":m '>+1<CR>gv=gv")
