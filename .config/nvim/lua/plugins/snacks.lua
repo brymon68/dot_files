@@ -9,7 +9,6 @@ return {
       enabled = true,
     },
     quickfile = { enabled = true },
-    scroll = { enabled = true },
     picker = {
       sources = {
         explorer = {
