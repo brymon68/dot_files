@@ -72,4 +72,17 @@ M.copyFilePathAndLineNumber = function()
 	end
 end
 
+M.show_and_copy_diagnostic = function()
+	local line = vim.fn.line(".") - 1
+	local diagnostics = vim.diagnostic.get(0, { lnum = line })
+	vim.diagnostic.open_float()
+	if #diagnostics > 0 then
+		local msgs = {}
+		for _, d in ipairs(diagnostics) do
+			table.insert(msgs, d.message)
+		end
+		vim.fn.setreg("+", table.concat(msgs, "\n"))
+	end
+end
+
 return M

@@ -16,5 +16,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>lg", function()
 			utils.copyFilePathAndLineNumber()
 		end, { noremap = true, silent = true, buffer = event.buf })
+		vim.keymap.set("n", "gl", function()
+			utils.show_and_copy_diagnostic()
+		end, { noremap = true, silent = true, buffer = event.buf })
 	end,
 })
