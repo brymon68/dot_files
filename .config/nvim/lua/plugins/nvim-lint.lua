@@ -18,8 +18,8 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 
-			-- Lua
-			lua = { "luacheck" },
+			-- Lua (commented out until luacheck is installed)
+			-- lua = { "luacheck" },
 
 			-- Shell
 			sh = { "shellcheck" },
