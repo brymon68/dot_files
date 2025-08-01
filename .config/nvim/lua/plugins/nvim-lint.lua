@@ -44,6 +44,15 @@ return {
 			end,
 		})
 
+		-- Clear diagnostics on text changes
+		vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+			group = lint_augroup,
+			callback = function()
+				-- Clear all diagnostics for the current buffer
+				vim.diagnostic.reset(nil, 0)
+			end,
+		})
+
 		-- Manual linting command
 		vim.keymap.set("n", "<leader>ll", function()
 			lint.try_lint()

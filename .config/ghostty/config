@@ -26,4 +26,4 @@ keybind = command+shift+n=text:\x00:new
 keybind = command+r=text:\x00$
 keybind = control+g=text:\x07
 
-theme = dark:tokyonight_night,light:tokyonight-day
+theme = dark:GruvboxDark,light:GruvBoxLight
