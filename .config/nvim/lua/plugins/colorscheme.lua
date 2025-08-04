@@ -1,5 +1,5 @@
 return {
-	"ellisonleao/gruvbox.nvim",
+	"sainnhe/gruvbox-material",
 	lazy = false,
 	priority = 1000,
 	dependencies = {
@@ -23,7 +23,7 @@ return {
 	config = function()
 		require("auto-dark-mode").init()
 
-		vim.cmd.colorscheme("gruvbox")
+		vim.cmd.colorscheme("gruvbox-material")
 
 		vim.api.nvim_create_user_command("DD", function()
 			vim.api.nvim_set_option_value("background", "dark", {})

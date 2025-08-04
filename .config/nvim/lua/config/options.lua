@@ -35,3 +35,5 @@ opt.undofile = true -- enable persistent undo
 
 -- auto-reload files when changed outside vim
 opt.autoread = true
+
+opt.winborder = "rounded"

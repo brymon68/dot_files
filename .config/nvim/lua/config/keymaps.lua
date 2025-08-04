@@ -5,7 +5,7 @@
 vim.g.mapleader = " "
 
 local function map(mode, lhs, rhs)
-  vim.keymap.set(mode, lhs, rhs, { silent = true })
+	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
 -- Remap jk to escape
@@ -35,25 +35,20 @@ map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
 
 -- greatest remap ever --theprimeagen
-map("x", "<leader>p", [["_dP]])
+map("x", "p", [["_dP]])
 
 map("n", "<leader>q", ":q!<CR>")
-map("n", "ca", function() vim.lsp.buf.code_action() end)
+map("n", "ca", function()
+	vim.lsp.buf.code_action()
+end)
 
 -- Move lines up and down
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
--- Run pytest in toggleterm on current file
-map("n", "<leader>tt", function()
-  local file_path = vim.fn.expand("%:p")
-  -- Create a new terminal and run pytest
-  require("toggleterm").exec("poetry run pytest -s " .. file_path)
-end)
-
 vim.keymap.set("i", "<C-a>", 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false,
+	expr = true,
+	replace_keycodes = false,
 })
 vim.g.copilot_no_tab_map = true
 
