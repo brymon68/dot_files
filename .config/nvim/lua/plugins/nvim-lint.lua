@@ -21,11 +21,6 @@ return {
 			-- Lua (commented out until luacheck is installed)
 			-- lua = { "luacheck" },
 
-			-- Shell
-			sh = { "shellcheck" },
-			bash = { "shellcheck" },
-			zsh = { "shellcheck" },
-
 			-- You can add more linters here as needed
 			python = { "flake8", "mypy" },
 		}
