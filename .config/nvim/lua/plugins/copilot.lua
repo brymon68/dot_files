@@ -1,7 +1,7 @@
 return {
 	"github/copilot.vim",
 	lazy = false,
-	enabled = false,
+	enabled = true,
 	event = "VimEnter",
 	init = function()
 		vim.g.copilot_workspace_folders = { vim.fn.getcwd() }

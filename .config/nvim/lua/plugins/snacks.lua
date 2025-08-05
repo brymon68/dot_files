@@ -1,5 +1,8 @@
 return {
 	"folke/snacks.nvim",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	priority = 1000,
 	lazy = false,
 	---@type snacks.Config
@@ -105,6 +108,13 @@ return {
 				Snacks.rename.rename_file()
 			end,
 			desc = "Rename File",
+		},
+		{
+			"<leader>fb",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Buffers",
 		},
 		{
 			"<leader>e",

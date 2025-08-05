@@ -1,5 +1,5 @@
 term=xterm-256color
-font-family = "JetBrainsMono Nerd Font"
+font-family = "Dank Mono"
 font-size = 18
 macos-titlebar-style = hidden
 macos-window-shadow = false
