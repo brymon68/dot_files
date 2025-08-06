@@ -1,11 +1,10 @@
 
 # PATH AND ALIAS
 export PATH=/opt/homebrew/bin:$PATH
-export PATH=/usr/local/bin/nvim-macos/bin/:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.tmuxifier/bin:$PATH"
+export PATH="/Users/bryce.montano/.local/share/bob/nvim-bin/:$PATH"
 export EDITOR="nvim"
 alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get z57dupjh4jlw6tyorld52g5plq --vault Private --fields "password" --reveal)'
 
@@ -62,3 +61,4 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
