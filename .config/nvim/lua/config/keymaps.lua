@@ -56,3 +56,6 @@ vim.g.copilot_no_tab_map = true
 vim.keymap.set("n", "<leader>/", "gc", { remap = true })
 vim.keymap.set("o", "<leader>/", "gc", { remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { remap = true })
+
+-- Source
+map("n", "<leader>o", ":update<CR> :source<CR>")

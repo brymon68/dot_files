@@ -3,6 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 local opt = vim.opt
 
 opt.number = true
+opt.relativenumber = true
 opt.numberwidth = 1
 
 opt.tabstop = 2
@@ -37,3 +38,4 @@ opt.undofile = true -- enable persistent undo
 opt.autoread = true
 
 opt.winborder = "rounded"
+vim.cmd(":hi statusline guibg=NONE")
