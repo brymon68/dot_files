@@ -4,6 +4,7 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.config/tmux:$PATH"
 export PATH="/Users/bryce.montano/.local/share/bob/nvim-bin/:$PATH"
 export EDITOR="nvim"
 alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get z57dupjh4jlw6tyorld52g5plq --vault Private --fields "password" --reveal)'
@@ -23,12 +24,8 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_COMMAND='fd --type f '
 export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort'"
 
-vf() {
-  IFS=$'\n' files=($(fzf --ansi --query="$1" --multi --select-1 --exit-0 ))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
 
-bindkey -s '^F' 'vf\n'
+bindkey -s '^F' 'tmux-sessionizer\n'
 
 # zoxide
 eval "$(zoxide init zsh)"
