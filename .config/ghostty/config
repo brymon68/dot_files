@@ -25,5 +25,6 @@ keybind = command+s=text:\x00s
 keybind = command+shift+n=text:\x00:new
 keybind = command+r=text:\x00$
 keybind = control+g=text:\x07
+keybind = command+f=text:\x00K
 
 theme = dark:GruvboxDark,light:GruvBoxLight
