@@ -96,13 +96,6 @@ return {
 			desc = "Go to type definition",
 		},
 		{
-			"<leader>ca",
-			function()
-				Snacks.picker.lsp_code_actions()
-			end,
-			desc = "Code actions",
-		},
-		{
 			"<leader>cR",
 			function()
 				Snacks.rename.rename_file()

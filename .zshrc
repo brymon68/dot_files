@@ -1,28 +1,28 @@
-
 # PATH AND ALIAS
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/tmux:$PATH"
-export PATH="/Users/bryce.montano/.local/share/bob/nvim-bin/:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 export EDITOR="nvim"
-alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get z57dupjh4jlw6tyorld52g5plq --vault Private --fields "password" --reveal)'
+alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get tjtl55t4leyvf4gotqtap3yy3u --vault Private --fields "password" --reveal)'
+alias set_claude_api_key='export ANTHROPIC_API_KEY=$(op item get lcjd4fhsyglbwcye5yc4jdvr5y --vault Private --fields "password" --reveal)'
+export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
+export EZA_CONFIG_DIR=~/.config/eza
 
 # PROMPT
 export CLICOLOR=1
 eval "$(starship init zsh)"
-
 
 #ENVS
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f '
 export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort'"
+eval "$(fzf --zsh)"
 
 function sesh-sessions() {
   {
@@ -36,18 +36,14 @@ function sesh-sessions() {
   }
 }
 
-bindkey -s '^F' 'sesh connect $(sesh list | fzf)\n'
+bindkey -s '^F' 'nvim $(fzf)\n'
 
 # zoxide
 eval "$(zoxide init zsh)"
 alias cd="z" 
-alias list="eza --icons -alh"
 
 #bat
 alias cat="bat"
-
-export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
-export EZA_CONFIG_DIR=~/.config/eza
 
 # pnpm
 export PNPM_HOME="/Users/$USER/Library/pnpm"
@@ -70,3 +66,7 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# work work file if exists
+if [ -f "$HOME/.zshrc-workrc" ]; then
+  source "$HOME/.zshrc-workrc"
+fi
