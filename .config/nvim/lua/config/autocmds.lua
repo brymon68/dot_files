@@ -9,9 +9,9 @@ api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 vim.keymap.set("", "<leader>ct", ":Copilot toggle<CR>", { noremap = true, silent = true })
 
 -- Auto-reload files when they change externally (like from tmux/other terminal)
-api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold", "CursorHoldI" }, {
 	pattern = "*",
-	command = "if mode() != 'c' | checktime | endif",
+	command = "checktime",
 })
 
 -- Notify when file changes externally
