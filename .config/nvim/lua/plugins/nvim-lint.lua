@@ -22,7 +22,7 @@ return {
 			-- lua = { "luacheck" },
 
 			-- You can add more linters here as needed
-			python = { "flake8", "ruff" },
+			python = { "ruff" },
 		}
 
 		-- Auto-lint on save and text changes

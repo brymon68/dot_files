@@ -19,12 +19,11 @@ return {
 				"goimports",
 				-- Note: gofmt comes with Go installation, not managed by Mason
 				"prettier",
-				"black",
+				"ruff",
 				"isort",
 
 				-- Linters and diagnostics
 				"eslint_d",
-				"flake8",
 			},
 		},
 		config = function(_, opts)
