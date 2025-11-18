@@ -10,6 +10,7 @@ alias set_claude_api_key='export ANTHROPIC_API_KEY=$(op item get lcjd4fhsyglbwcy
 export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
 export EZA_CONFIG_DIR=~/.config/eza
 
+
 # PROMPT
 export CLICOLOR=1
 eval "$(starship init zsh)"
@@ -27,7 +28,6 @@ bindkey -s '^F' 'nvim $(fzf)\n'
 
 # zoxide
 eval "$(zoxide init zsh)"
-alias cd="z" 
 
 #bat
 alias cat="bat"
@@ -56,3 +56,11 @@ function y() {
 if [ -f "$HOME/.zshrc-workrc" ]; then
   source "$HOME/.zshrc-workrc"
 fi
+
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun completions
+[ -s "/Users/bryce.montano/.bun/_bun" ] && source "/Users/bryce.montano/.bun/_bun"
