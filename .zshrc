@@ -4,6 +4,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="$HOME/.config/tmux:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get tjtl55t4leyvf4gotqtap3yy3u --vault Private --fields "password" --reveal)'
 alias set_claude_api_key='export ANTHROPIC_API_KEY=$(op item get lcjd4fhsyglbwcye5yc4jdvr5y --vault Private --fields "password" --reveal)'
