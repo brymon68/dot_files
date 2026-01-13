@@ -105,6 +105,7 @@ alt-f = 'fullscreen'
 alt-comma = 'resize width -200'
 alt-period = 'resize width +200'
 alt-0 = 'balance-sizes'
+alt-m = 'move-node-to-monitor "Built-in Retina Display"'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 
