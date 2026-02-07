@@ -1,5 +1,9 @@
 - In all interactions and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
 
+## Github
+
+Your primary method for interacting with Github should be through the Github CLI.
+
 ## PR Comments
 
 <pr-comment-rule>

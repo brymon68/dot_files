@@ -8,6 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get tjtl55t4leyvf4gotqtap3yy3u --vault Private --fields "password" --reveal)'
 alias set_claude_api_key='export ANTHROPIC_API_KEY=$(op item get lcjd4fhsyglbwcye5yc4jdvr5y --vault Private --fields "password" --reveal)'
+alias set_aws_keys='export AWS_ACCESS_KEY_ID=$(op item get v6zzdqu7bbtg7n3sqyc3s4lzwu --vault Private --fields "AccessKeyId" --reveal) && export AWS_SECRET_ACCESS_KEY=$(op item get v6zzdqu7bbtg7n3sqyc3s4lzwu --vault Private --fields "SecretAccessKey" --reveal)'
 export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
 export EZA_CONFIG_DIR=~/.config/eza
 
