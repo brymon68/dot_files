@@ -27,5 +27,6 @@ keybind = command+r=text:\x00$
 keybind = control+g=text:\x07
 keybind = command+f=text:\x00K
 
-theme = dark:Gruvbox Dark,light:GruvBox Light
+theme = dark:Catppuccin Macchiato,light:Dawnfox
+background-opacity = 0.95
 keybind = shift+enter=text:\x1b\r
