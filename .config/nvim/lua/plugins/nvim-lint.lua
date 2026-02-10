@@ -13,10 +13,10 @@ return {
 			go = { "golangcilint" },
 
 			-- JavaScript/TypeScript
-			javascript = { "eslint_d" },
-			typescript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
+			javascript = { "oxlint" },
+			typescript = { "oxlint" },
+			javascriptreact = { "oxlint" },
+			typescriptreact = { "oxlint" },
 
 			-- Lua (commented out until luacheck is installed)
 			-- lua = { "luacheck" },
@@ -28,7 +28,7 @@ return {
 		-- Auto-lint on save and text changes
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
 			callback = function()
 				-- Only lint if linters are available for this filetype

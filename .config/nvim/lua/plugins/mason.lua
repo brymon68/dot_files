@@ -18,12 +18,12 @@ return {
 				"stylua",
 				"goimports",
 				-- Note: gofmt comes with Go installation, not managed by Mason
-				"prettier",
+				"oxfmt",
 				"ruff",
 				"isort",
 
 				-- Linters and diagnostics
-				"eslint_d",
+				"oxlint",
 			},
 		},
 		config = function(_, opts)
