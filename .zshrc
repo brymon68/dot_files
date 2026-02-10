@@ -55,8 +55,8 @@ function y() {
 }
 
 # work work file if exists
-if [ -f "$HOME/.zshrc-workrc" ]; then
-  source "$HOME/.zshrc-workrc"
+if [ -f "$HOME/.zsh-workrc" ]; then
+  source "$HOME/.zsh-workrc"
 fi
 
 
