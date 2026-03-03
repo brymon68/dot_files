@@ -26,7 +26,21 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_COMMAND='fd --type f '
 export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort'"
 eval "$(fzf --zsh)"
-bindkey -s '^F' 'nvim $(fzf)\n'
+fzf-nvim-widget() {
+  local file=$(fzf < /dev/tty)
+  [[ -n "$file" ]] && nvim "$file"
+  zle reset-prompt
+}
+zle -N fzf-nvim-widget
+bindkey '^F' fzf-nvim-widget
+export FZF_DEFAULT_OPTS=" \
+--layout=reverse --height=50% \
+--bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort' \
+--color=bg+:#363A4F,bg:-1,spinner:#F4DBD6,hl:#ED8796 \
+--color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+--color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+--color=selected-bg:#494D64 \
+--color=border:#6E738D,label:#CAD3F5"
 
 # zoxide
 eval "$(zoxide init zsh)"
