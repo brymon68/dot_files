@@ -24,6 +24,11 @@ return {
 			},
 		},
 	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+		Snacks.toggle.diagnostics():map("<leader>lt")
+		Snacks.toggle.option("laststatus", { on = 2, off = 0, name = "Statusline" }):map("<leader>wt")
+	end,
 	keys = {
 		{
 			"<leader>fg",
@@ -136,6 +141,13 @@ return {
 				require("config.utils").snacks_git_or_file()
 			end,
 			desc = "Find files",
+		},
+		{
+			"<leader>z",
+			function()
+				Snacks.zen()
+			end,
+			desc = "Zen Mode",
 		},
 	},
 }

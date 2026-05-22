@@ -11,8 +11,6 @@ return {
 				"lua-language-server",
 				"gopls",
 				"typescript-language-server",
-				"html-lsp",
-				"css-lsp",
 
 				-- Formatters (for conform.nvim and general use)
 				"stylua",

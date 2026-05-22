@@ -30,3 +30,5 @@ keybind = command+f=text:\x00K
 theme = dark:Catppuccin Macchiato,light:Dawnfox
 background-opacity = 0.95
 keybind = shift+enter=text:\x1b\r
+
+macos-icon = holographic

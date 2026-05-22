@@ -1,5 +1,3 @@
-local blink = require("blink.cmp")
-
 local function get_python_path()
   local cwd = vim.fn.getcwd()
   local venv_path = cwd .. "/.venv"
@@ -46,10 +44,4 @@ return {
       },
     },
   },
-  capabilities = vim.tbl_deep_extend(
-    "force",
-    {},
-    vim.lsp.protocol.make_client_capabilities(),
-    blink.get_lsp_capabilities()
-  ),
 }
