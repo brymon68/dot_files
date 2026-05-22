@@ -27,8 +27,8 @@ keybind = command+r=text:\x00$
 keybind = control+g=text:\x07
 keybind = command+f=text:\x00K
 
-theme = dark:Catppuccin Macchiato,light:Dawnfox
-background-opacity = 0.95
+theme = dark:Black Metal,light:Dawnfox
+background-opacity = 0.90
 keybind = shift+enter=text:\x1b\r
 
 macos-icon = holographic
