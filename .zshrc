@@ -12,11 +12,26 @@ alias set_aws_keys='export AWS_ACCESS_KEY_ID=$(op item get v6zzdqu7bbtg7n3sqyc3s
 export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
 export EZA_CONFIG_DIR=~/.config/eza
 
-# Location of the history file
+
+# ZSH
 export HISTFILE=~/.zsh_history
 
 # History limit of the file on disk (set to a large number or essentially unlimited)
 export HISTFILESIZE=1000000
+# Share history across multiple sessions
+setopt SHARE_HISTORY
+
+# Append to history file immediately after command execution
+setopt INC_APPEND_HISTORY
+
+# Save each command's beginning timestamp and duration to the history file
+setopt EXTENDED_HISTORY
+
+# Wait for command completion before writing the history entry with duration
+setopt INC_APPEND_HISTORY_TIME
+
+# Do not save command lines that match the previous command line
+setopt HIST_IGNORE_DUPS
 
 
 # PROMPT
