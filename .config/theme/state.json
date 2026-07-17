@@ -1,24 +1,24 @@
 {
   "dark": {
-    "name": "Black Metal",
+    "name": "Gruvbox Dark",
     "nvim_themed": true,
     "base16": {
-      "base00": "#000000",
-      "base01": "#1a1a1a",
-      "base02": "#303030",
-      "base03": "#404040",
-      "base04": "#808080",
-      "base05": "#c1c1c1",
-      "base06": "#c1c1c1",
-      "base07": "#c1c1c1",
-      "base08": "#486e6f",
-      "base09": "#746a6a",
-      "base0A": "#a06666",
-      "base0B": "#dd9999",
-      "base0C": "#aaaaaa",
-      "base0D": "#888888",
-      "base0E": "#999999",
-      "base0F": "#ac8686"
+      "base00": "#282828",
+      "base01": "#524c46",
+      "base02": "#786c61",
+      "base03": "#928374",
+      "base04": "#beaf93",
+      "base05": "#ebdbb2",
+      "base06": "#ebdbb2",
+      "base07": "#ebdbb2",
+      "base08": "#cc241d",
+      "base09": "#d25e1f",
+      "base0A": "#d79921",
+      "base0B": "#98971a",
+      "base0C": "#689d6a",
+      "base0D": "#458588",
+      "base0E": "#b16286",
+      "base0F": "#deb054"
     }
   },
   "light": {

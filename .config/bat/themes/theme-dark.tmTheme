@@ -8,113 +8,113 @@
     <dict>
       <key>settings</key>
       <dict>
-        <key>background</key><string>#000000</string>
-        <key>foreground</key><string>#c1c1c1</string>
-        <key>caret</key><string>#c1c1c1</string>
-        <key>invisibles</key><string>#404040</string>
-        <key>lineHighlight</key><string>#1a1a1a</string>
-        <key>selection</key><string>#303030</string>
+        <key>background</key><string>#282828</string>
+        <key>foreground</key><string>#ebdbb2</string>
+        <key>caret</key><string>#ebdbb2</string>
+        <key>invisibles</key><string>#928374</string>
+        <key>lineHighlight</key><string>#524c46</string>
+        <key>selection</key><string>#786c61</string>
       </dict>
     </dict>
     <dict>
       <key>scope</key><string>comment</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#404040</string></dict>
+      <dict><key>foreground</key><string>#928374</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>string</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#dd9999</string></dict>
+      <dict><key>foreground</key><string>#98971a</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>constant.numeric</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#746a6a</string></dict>
+      <dict><key>foreground</key><string>#d25e1f</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>constant.language</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#746a6a</string></dict>
+      <dict><key>foreground</key><string>#d25e1f</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>constant.character, constant.other</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#746a6a</string></dict>
+      <dict><key>foreground</key><string>#d25e1f</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>variable</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#486e6f</string></dict>
+      <dict><key>foreground</key><string>#cc241d</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>keyword</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#999999</string></dict>
+      <dict><key>foreground</key><string>#b16286</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>storage</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#999999</string></dict>
+      <dict><key>foreground</key><string>#b16286</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>storage.type</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#a06666</string></dict>
+      <dict><key>foreground</key><string>#d79921</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>entity.name.class, entity.name.type.class</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#a06666</string></dict>
+      <dict><key>foreground</key><string>#d79921</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>entity.name.function, support.function</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#888888</string></dict>
+      <dict><key>foreground</key><string>#458588</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>entity.name.tag</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#486e6f</string></dict>
+      <dict><key>foreground</key><string>#cc241d</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>entity.other.attribute-name</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#746a6a</string></dict>
+      <dict><key>foreground</key><string>#d25e1f</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>support.type, support.class</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#a06666</string></dict>
+      <dict><key>foreground</key><string>#d79921</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>support.constant</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#746a6a</string></dict>
+      <dict><key>foreground</key><string>#d25e1f</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>punctuation</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#c1c1c1</string></dict>
+      <dict><key>foreground</key><string>#ebdbb2</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>invalid</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#486e6f</string></dict>
+      <dict><key>foreground</key><string>#cc241d</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>markup.inserted</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#dd9999</string></dict>
+      <dict><key>foreground</key><string>#98971a</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>markup.deleted</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#486e6f</string></dict>
+      <dict><key>foreground</key><string>#cc241d</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>markup.changed</string>
       <key>settings</key>
-      <dict><key>foreground</key><string>#a06666</string></dict>
+      <dict><key>foreground</key><string>#d79921</string></dict>
     </dict>
   </array>
   <key>uuid</key><string>18a7cafa-2ab4-55e4-bd68-c36ccec30767</string>

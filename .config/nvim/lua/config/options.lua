@@ -17,6 +17,11 @@ opt.smartcase = true -- if you incldue mixedcase in search, assumes you want cas
 
 opt.cursorline = true
 
+-- Global statusline. Required so per-window statuslines aren't drawn on
+-- floating windows (e.g. snacks picker), which otherwise steal a row from
+-- each float and break the picker layout.
+opt.laststatus = 3
+
 opt.termguicolors = true
 opt.signcolumn = "yes"
 

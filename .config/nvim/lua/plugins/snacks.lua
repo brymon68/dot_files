@@ -27,7 +27,7 @@ return {
 	config = function(_, opts)
 		require("snacks").setup(opts)
 		Snacks.toggle.diagnostics():map("<leader>lt")
-		Snacks.toggle.option("laststatus", { on = 2, off = 0, name = "Statusline" }):map("<leader>wt")
+		Snacks.toggle.option("laststatus", { on = 3, off = 0, name = "Statusline" }):map("<leader>wt")
 	end,
 	keys = {
 		{
