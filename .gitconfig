@@ -5,10 +5,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[color "diff"]
-	new = "#618774"
-	old = "#b4637a"
-[color "status"]
-	added = "#618774"
-	changed = "#b4637a"
-	untracked = "#b4637a"
+[user]
+	name = brymon68
+	email = brycemontano1@gmail.com
