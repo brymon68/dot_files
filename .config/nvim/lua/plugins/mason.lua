@@ -27,6 +27,8 @@ return {
 		config = function(_, opts)
 			-- PATH is handled by core.mason-path for consistency
 			require("mason").setup(opts)
+			-- The installer explicitly waits for downloads and checks their results.
+			if vim.env.DOTFILES_BOOTSTRAP then return end
 
 			-- Auto-install ensure_installed tools with better error handling
 			local mr = require("mason-registry")

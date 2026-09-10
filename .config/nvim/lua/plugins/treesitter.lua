@@ -4,26 +4,9 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	config = function()
-		require("nvim-treesitter").install({
-			"bash",
-			"c",
-			"css",
-			"dockerfile",
-			"go",
-			"html",
-			"json",
-			"lua",
-			"markdown",
-			"markdown_inline",
-			"python",
-			"query",
-			"toml",
-			"tsx",
-			"typescript",
-			"vim",
-			"vimdoc",
-			"yaml",
-		})
+		if not vim.env.DOTFILES_BOOTSTRAP then
+			require("nvim-treesitter").install(require("config.treesitter-languages"))
+		end
 
 		-- main branch doesn't auto-enable highlighting; start it per buffer
 		vim.api.nvim_create_autocmd("FileType", {
