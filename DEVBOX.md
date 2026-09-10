@@ -58,16 +58,6 @@ unchanged when this variable is absent.
 
 ## Troubleshooting
 
-To repeat the integration checks from the checkout:
-
-```sh
-DOTFILES_BOOTSTRAP=1 nvim --headless '+luafile scripts/smoke-nvim.lua'
-```
-
-This uses temporary projects to test LSP initialization, Tree-sitter
-highlighting, and formatting for Python, Lua, TypeScript, and Go. Python's
-Conform entry uses `ruff_format`; `ruff` is the lint-fix adapter.
-
 - `:MasonLog`: dependency download/build failures. Fix connectivity or package
   availability and rerun; completed installs are retained.
 - `:checkhealth`: editor/plugin health. A Nerd Font should be selected in the
