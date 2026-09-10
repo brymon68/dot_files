@@ -26,7 +26,7 @@ return {
 				markdown = { "oxfmt" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "stylua" },
-				python = { "ruff" },
+				python = { "ruff_format" },
 			},
 			format_on_save = {
 				lsp_format = "fallback",
