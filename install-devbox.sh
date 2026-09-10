@@ -7,7 +7,6 @@ repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 }
 export PATH="$HOME/.local/bin:$PATH"
 config_home=${XDG_CONFIG_HOME:-$HOME/.config}
-data_home=${XDG_DATA_HOME:-$HOME/.local/share}
 state_home=${XDG_STATE_HOME:-$HOME/.local/state}
 cache_home=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$HOME/.local/bin" "$HOME/.local/opt" "$config_home" "$state_home/dotfiles" "$cache_home/dotfiles"
@@ -96,22 +95,6 @@ for rc in "$HOME/.profile" "$HOME/.bashrc" "${ZDOTDIR:-$HOME}/.zshrc"; do
   fi
 done
 
-# Bootstrap lazy.nvim at the commit recorded by this repo, not today's stable tip.
-lazy_dir="$data_home/nvim/lazy/lazy.nvim"
-lazy_commit=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["lazy.nvim"]["commit"])' "$repo/.config/nvim/lazy-lock.json")
-if [[ ! -d $lazy_dir ]]; then
-  mkdir -p "$(dirname "$lazy_dir")"
-  git clone --filter=blob:none https://github.com/folke/lazy.nvim.git "$lazy_dir"
-  git -C "$lazy_dir" checkout "$lazy_commit"
-fi
-export DOTFILES_BOOTSTRAP=1
-# Lazy may rewrite branch metadata; keep the user's lockfile byte-for-byte.
-lock_backup=$(mktemp "$cache_home/dotfiles/lazy-lock.XXXXXX")
-cp "$repo/.config/nvim/lazy-lock.json" "$lock_backup"
-trap 'cp "$lock_backup" "$repo/.config/nvim/lazy-lock.json"; rm -f "$lock_backup"' EXIT
-nvim --headless '+Lazy! restore' +qa
-cp "$lock_backup" "$repo/.config/nvim/lazy-lock.json"
-export DOTFILES_REPO="$repo"
-nvim --headless -l "$repo/scripts/bootstrap-nvim.lua"
 echo 'Ready. In your current shell run: export PATH="$HOME/.local/bin:$PATH"'
+echo 'Start nvim and let your existing plugin configuration finish its first-run installs.'
 nvim --version | head -1

@@ -41,25 +41,27 @@ Update your checkout deliberately before rerunning when you want new config.
   and Python venv support. Ubuntu package versions follow the image's repos.
 - A link from `~/.config/nvim` to this checkout's `.config/nvim` (XDG paths
   are respected).
-- Plugins restored to `lazy-lock.json`; all 18 configured Tree-sitter parsers.
-- The ten tools listed in `lua/plugins/mason.lua`, including Python, Lua, Go,
-  and TypeScript language servers, formatters, and linters. Mason versions
-  are resolved on first install; existing installed tools are retained.
+
+On first launch, your existing Neovim configuration installs plugins, its
+18 configured Tree-sitter parsers, and the ten tools listed in
+`lua/plugins/mason.lua`. These include Python, Lua, Go, and TypeScript language
+servers, formatters, and linters. Mason versions are resolved on first install;
+existing installed tools are retained. Keep Neovim open until downloads finish.
 
 The script preserves platform shell startup and adds one PATH line to
 `.profile`, `.bashrc`, and `.zshrc`. It does not install the macOS shell,
 desktop, AWS, or Git configuration. Node in `~/.local/bin` takes precedence
 over system Node once the PATH line is loaded.
 
-`DOTFILES_BOOTSTRAP` disables the normal asynchronous Mason and parser
-auto-installs only during setup. The installer waits for them explicitly,
-checks the results, and exits nonzero on failure. Normal Neovim behavior is
-unchanged when this variable is absent.
+The shell installer only sets up binaries, dependencies, configuration links,
+and PATH. It does not run Neovim headlessly, wait for plugin tools or parsers,
+or use a separate Lua bootstrap script. Plugin installation failures are
+reported inside Neovim rather than as provisioning failures.
 
 ## Troubleshooting
 
 - `:MasonLog`: dependency download/build failures. Fix connectivity or package
-  availability and rerun; completed installs are retained.
+  availability and restart Neovim; completed installs are retained.
 - `:checkhealth`: editor/plugin health. A Nerd Font should be selected in the
   terminal on your laptop for the configured icons.
 - The config's optional Groovy formatter (`npm-groovy-lint`) and Go linter

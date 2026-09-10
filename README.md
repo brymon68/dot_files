@@ -37,14 +37,18 @@ this repo or running its installer does not add the provisioning entry for you.
 
 With the configuration above, provisioning clones the repo and invokes
 [`install-devbox.sh`](install-devbox.sh) on the new devbox. The installer
-locates its own checkout, installs the dependencies, links the Neovim config,
-and waits for plugin tools and syntax parsers to finish installing.
+locates its own checkout, installs Neovim and its system dependencies, and
+links the Neovim config. Your existing configuration handles plugin, Mason
+tool, and syntax parser installation when you first launch Neovim.
 
 Once provisioning completes, connect to the devbox and run:
 
 ```sh
 nvim
 ```
+
+Keep Neovim open while the first-run installs finish. Provisioning does not
+wait for or verify those downloads.
 
 The provisioning hook runs during setup; it is not an installer that runs on
 every SSH login.
@@ -70,15 +74,15 @@ The supported target is Ubuntu on Linux x86_64, tested on Ubuntu 24.04.
   Python venv support. This step requires noninteractive sudo.
 - A symlink from `~/.config/nvim` to the checkout's `.config/nvim`, respecting
   XDG directory overrides.
-- Plugins restored from `lazy-lock.json`, the configured Tree-sitter parsers,
-  and the tools listed in the Mason config. Mason resolves tool versions on
-  first install and retains installed tools on reruns.
+- Your existing lazy.nvim, Mason, and Tree-sitter configuration handles
+  plugins and tools at editor startup. The shell installer does not run
+  Neovim headlessly or use a separate Lua bootstrap script.
 - A PATH line in the existing shell startup files. Platform shell settings
   are preserved, and files replaced by the installer are backed up.
 
 The devbox installer installs the Neovim setup, not the repository's macOS
 desktop, AWS, Git, or full shell configuration. See [DEVBOX.md](DEVBOX.md) for
-versions, optional tools, verification, and rollback details.
+versions, optional tools, troubleshooting, and rollback details.
 
 ## Existing devboxes and updates
 
@@ -105,4 +109,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 For a box without this checkout, follow the manual setup in
 [DEVBOX.md](DEVBOX.md). For failed tool downloads, inspect `:MasonLog` in
-Neovim, fix the underlying issue, and rerun the installer.
+Neovim, fix the underlying issue, and restart Neovim to retry missing tools.
