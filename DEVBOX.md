@@ -1,4 +1,4 @@
-# Neovim on a devbox
+# Shell and Neovim on a devbox
 
 Test target: Ubuntu 24.04, Linux x86_64 (`dev0`). This installs the existing
 Neovim configuration from this repo, including its plugin lockfile.
@@ -12,7 +12,7 @@ the installer does not store a token or copy your private key.
 git clone git@github.com:brymon68/dot_files.git ~/dot_files
 cd ~/dot_files
 ./install-devbox.sh
-export PATH="$HOME/.local/bin:$PATH"
+exec "$SHELL"
 nvim
 ```
 
@@ -34,10 +34,11 @@ Update your checkout deliberately before rerunning when you want new config.
 
 ## What is installed
 
-- Neovim 0.12.5, Node.js 22.23.2 (with npm/npx), and Tree-sitter CLI 0.26.6
+- Neovim 0.12.5, Node.js 22.23.2 (with npm/npx), Starship 1.26.0,
+  and Tree-sitter CLI 0.26.6
   under `~/.local/opt`, with launcher symlinks in `~/.local/bin`. Official
   archives have pinned SHA-256 checksums.
-- Missing Ubuntu prerequisites, including ripgrep, fd, a C compiler, Go,
+- Missing Ubuntu prerequisites, including FZF, ripgrep, fd, a C compiler, Go,
   and Python venv support. Ubuntu package versions follow the image's repos.
 - A link from `~/.config/nvim` to this checkout's `.config/nvim` (XDG paths
   are respected).
@@ -48,13 +49,19 @@ On first launch, your existing Neovim configuration installs plugins, its
 servers, formatters, and linters. Mason versions are resolved on first install;
 existing installed tools are retained. Keep Neovim open until downloads finish.
 
-The script preserves platform shell startup and adds one PATH line to
-`.profile`, `.bashrc`, and `.zshrc`. It does not install the macOS shell,
-desktop, AWS, or Git configuration. Node in `~/.local/bin` takes precedence
-over system Node once the PATH line is loaded.
+The script preserves platform shell startup, adds PATH to `.profile`,
+`.bashrc`, and `.zshrc`, and sources `.config/devbox/shell.sh` from Bash and
+Zsh. Interactive shells enable Starship using this repo's configuration and
+bind **Ctrl-F** to select a file and open it in Neovim. The `ff` command works
+too. In Git repositories it searches tracked files; **Ctrl-U** expands the
+search to non-ignored files. Escape cancels without opening anything.
+FZF's packaged history and file bindings are also loaded.
+
+It does not install the macOS shell, desktop, AWS, or Git configuration.
+Node in `~/.local/bin` takes precedence over system Node.
 
 The shell installer only sets up binaries, dependencies, configuration links,
-and PATH. It does not run Neovim headlessly, wait for plugin tools or parsers,
+and shell integration. It does not run Neovim headlessly, wait for plugin tools or parsers,
 or use a separate Lua bootstrap script. Plugin installation failures are
 reported inside Neovim rather than as provisioning failures.
 
@@ -76,6 +83,27 @@ reported inside Neovim rather than as provisioning failures.
 Replaced files and pre-edit shell files are backed up under
 `~/.local/state/dotfiles/backups/<timestamp>-<pid>/` (or `$XDG_STATE_HOME`).
 The installer prints the exact paths. To roll back, remove the new symlink
-and restore its corresponding `.original` backup. Remove the line marked
-`# dotfiles-devbox` from the shell files to undo PATH integration. Installed
+and restore its corresponding `.original` backup. Remove the lines marked
+`# dotfiles-devbox` and `# dotfiles-devbox-shell` from the shell files to undo
+PATH and shell integration. Installed
 apt dependencies are retained; old versioned binaries are never deleted.
+
+## Local tmux and devbox SSH
+
+The laptop `.zshrc` wraps `dbox ssh`: when `$TMUX` is set, it adds
+`--no-tmux`, so the local tmux owns scrolling and pane management. Outside
+local tmux, dbox keeps its default remote tmux behavior. Load the updated
+laptop `.zshrc` before using this wrapper. For an immediate workaround:
+
+```sh
+dbox ssh dev0 --no-tmux
+```
+
+Use `dbox ssh dev0 --session work` or `dbox ssh dev0 --no-tmux=false` to
+explicitly request remote tmux, or `command dbox ssh dev0` to bypass the
+wrapper. Global flags placed before `ssh` also bypass the wrapper; add
+`--no-tmux` yourself in that form.
+
+Without remote tmux, remote foreground work is not protected against SSH
+connection loss. For long-running jobs, explicitly use a remote session;
+connecting from a terminal outside local tmux avoids nesting in that case.

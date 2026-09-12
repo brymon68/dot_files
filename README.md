@@ -3,6 +3,18 @@
 Personal configuration files, including a Neovim setup that can be installed
 automatically when provisioning an Applied devbox.
 
+## Managing these files with yadm
+
+On the laptop, yadm tracks files in your home directory. Make changes there
+and use `yadm add`, `yadm commit`, and `yadm push` to publish them. A separate
+Git clone has its own working files; edits there do not automatically update
+yadm's files.
+
+Track both `install-devbox.sh` and `.config/devbox/shell.sh` in yadm. The
+installer uses the shell file from its own checkout. On devboxes, use a normal
+clone and run the installer below to install only the portable configuration.
+Do not run the Linux installer on the laptop.
+
 ## Automatic devbox setup
 
 ### 1. Make the installer available on GitHub
@@ -68,19 +80,19 @@ key, or configure GitHub authentication.
 
 The supported target is Ubuntu on Linux x86_64, tested on Ubuntu 24.04.
 
-- Pinned, SHA-256-checked Neovim, Node.js/npm, and Tree-sitter CLI releases
+- Pinned, SHA-256-checked Neovim, Node.js/npm, Starship, and Tree-sitter CLI releases
   under `~/.local/opt`, with symlinks in `~/.local/bin`.
-- Missing Ubuntu dependencies, including ripgrep, fd, a C compiler, Go, and
+- Missing Ubuntu dependencies, including FZF, ripgrep, fd, a C compiler, Go, and
   Python venv support. This step requires noninteractive sudo.
 - A symlink from `~/.config/nvim` to the checkout's `.config/nvim`, respecting
   XDG directory overrides.
 - Your existing lazy.nvim, Mason, and Tree-sitter configuration handles
   plugins and tools at editor startup. The shell installer does not run
   Neovim headlessly or use a separate Lua bootstrap script.
-- A PATH line in the existing shell startup files. Platform shell settings
+- PATH and portable Bash/Zsh integration for Starship and Ctrl-F → Neovim. Platform shell settings
   are preserved, and files replaced by the installer are backed up.
 
-The devbox installer installs the Neovim setup, not the repository's macOS
+The devbox installer installs the Neovim and portable shell setup, not the repository's macOS
 desktop, AWS, Git, or full shell configuration. See [DEVBOX.md](DEVBOX.md) for
 versions, optional tools, troubleshooting, and rollback details.
 
@@ -100,13 +112,19 @@ duplicate PATH entries, and rechecks system dependencies after an image
 reset. It does not pull or reset the checkout. To adopt upstream changes,
 update your checkout first, then rerun the installer.
 
-If you run the installer from an already-open shell, load its PATH adjustment
-for that shell before starting Neovim:
+If you run the installer from an already-open shell, start a fresh shell to load the prompt and key bindings:
 
 ```sh
-export PATH="$HOME/.local/bin:$PATH"
+exec "$SHELL"
 ```
 
 For a box without this checkout, follow the manual setup in
 [DEVBOX.md](DEVBOX.md). For failed tool downloads, inspect `:MasonLog` in
 Neovim, fix the underlying issue, and restart Neovim to retry missing tools.
+
+## Connecting from local tmux
+
+The laptop `.zshrc` now adds `--no-tmux` to `dbox ssh` inside local tmux,
+avoiding nested scrolling. Explicit `--session` or `--no-tmux` options win.
+See [DEVBOX.md](DEVBOX.md#local-tmux-and-devbox-ssh) for overrides and the
+connection-loss tradeoff. The installer does not update your laptop `.zshrc`.

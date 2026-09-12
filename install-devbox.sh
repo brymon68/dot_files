@@ -38,7 +38,7 @@ fetch() {
 }
 
 # System packages are the only sudo step. Rechecked after devbox image resets.
-packages=(ca-certificates curl git build-essential unzip xz-utils ripgrep fd-find golang-go python3-venv)
+packages=(ca-certificates curl git build-essential unzip xz-utils ripgrep fd-find fzf golang-go python3-venv)
 missing=()
 for package in "${packages[@]}"; do
   [[ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null || true) == 'install ok installed' ]] || missing+=("$package")
@@ -86,7 +86,20 @@ link "$ts_dir/tree-sitter" "$HOME/.local/bin/tree-sitter"
 if ! command -v fd >/dev/null; then link "$(command -v fdfind)" "$HOME/.local/bin/fd"; fi
 link "$repo/.config/nvim" "$config_home/nvim"
 
-# Keep the platform shell config and add only PATH. Never source the macOS zshrc.
+starship_version=1.26.0
+starship_dir="$HOME/.local/opt/starship-$starship_version"
+if [[ ! -x $starship_dir/starship ]]; then
+  archive="$cache_home/dotfiles/starship-$starship_version.tar.gz"
+  fetch "https://github.com/starship/starship/releases/download/v$starship_version/starship-x86_64-unknown-linux-musl.tar.gz" b7c232b0e8249d8e55a40beb79c5c43a7d370f3f9408bd215deb0170daeaadf3 "$archive"
+  stage=$(mktemp -d "$HOME/.local/opt/.starship.XXXXXX")
+  tar -xzf "$archive" -C "$stage"
+  mv "$stage" "$starship_dir"
+fi
+link "$starship_dir/starship" "$HOME/.local/bin/starship"
+link "$repo/.config/starship.toml" "$config_home/starship.toml"
+link "$repo/.config/devbox" "$config_home/devbox"
+
+# Preserve platform startup; source only the portable devbox shell additions.
 path_line='export PATH="$HOME/.local/bin:$PATH" # dotfiles-devbox'
 for rc in "$HOME/.profile" "$HOME/.bashrc" "${ZDOTDIR:-$HOME}/.zshrc"; do
   if ! grep -Fqx "$path_line" "$rc" 2>/dev/null; then
@@ -94,7 +107,15 @@ for rc in "$HOME/.profile" "$HOME/.bashrc" "${ZDOTDIR:-$HOME}/.zshrc"; do
     printf '\n%s\n' "$path_line" >> "$rc"
   fi
 done
+shell_line='[ ! -r "${XDG_CONFIG_HOME:-$HOME/.config}/devbox/shell.sh" ] || . "${XDG_CONFIG_HOME:-$HOME/.config}/devbox/shell.sh" # dotfiles-devbox-shell'
+for rc in "$HOME/.bashrc" "${ZDOTDIR:-$HOME}/.zshrc"; do
+  if ! grep -Fqx "$shell_line" "$rc" 2>/dev/null; then
+    # Preserve the pre-install backup if PATH was also added in this run.
+    [[ ! -e $rc || -e $backup_dir/$(basename "$rc") ]] || backup "$rc" "$(basename "$rc")"
+    printf '\n%s\n' "$shell_line" >> "$rc"
+  fi
+done
 
-echo 'Ready. In your current shell run: export PATH="$HOME/.local/bin:$PATH"'
+echo 'Ready. Open a new shell to enable Starship and Ctrl-F (files → Neovim).'
 echo 'Start nvim and let your existing plugin configuration finish its first-run installs.'
 nvim --version | head -1
