@@ -128,23 +128,3 @@ done
 export API_REPO_PATH="/Users/cyber/code/openai/api"
 source ~/.api_shell_include
 source /Users/cyber/code/openai/api/applied-devtools/completions/applied_completions.zsh
-
-# Keep one tmux layer when connecting from a local tmux pane. An explicit
-# remote session or --no-tmux setting takes precedence (including =false).
-dbox() {
-  if [[ -n ${TMUX:-} && ${1:-} == ssh ]]; then
-    local arg
-    for arg in "$@"; do
-      case "$arg" in
-        --session|--session=*|--no-tmux|--no-tmux=*|--)
-          command dbox "$@"
-          return $?
-          ;;
-      esac
-    done
-    shift
-    command dbox ssh --no-tmux "$@"
-  else
-    command dbox "$@"
-  fi
-}

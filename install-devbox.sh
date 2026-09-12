@@ -38,14 +38,14 @@ fetch() {
 }
 
 # System packages are the only sudo step. Rechecked after devbox image resets.
-packages=(ca-certificates curl git build-essential unzip xz-utils ripgrep fd-find fzf golang-go python3-venv)
+packages=(ca-certificates curl git build-essential unzip xz-utils ripgrep fd-find fzf tmux golang-go python3-venv)
 missing=()
 for package in "${packages[@]}"; do
   [[ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null || true) == 'install ok installed' ]] || missing+=("$package")
 done
 if ((${#missing[@]})); then
   sudo -n apt-get update
-  sudo -n env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "${missing[@]}"
+  sudo -n env DEBIAN_FRONTEND=noninteractive apt-get -o DPkg::Lock::Timeout=300 install -y --no-install-recommends "${missing[@]}"
 fi
 
 # Pinned official release archives, checked against publisher SHA-256 digests.
@@ -98,6 +98,17 @@ fi
 link "$starship_dir/starship" "$HOME/.local/bin/starship"
 link "$repo/.config/starship.toml" "$config_home/starship.toml"
 link "$repo/.config/devbox" "$config_home/devbox"
+
+# Extend the active remote tmux config without replacing platform settings.
+tmux_rc="$HOME/.tmux.conf"
+if [[ ! -e $tmux_rc && -e $config_home/tmux/tmux.conf ]]; then
+  tmux_rc="$config_home/tmux/tmux.conf"
+fi
+tmux_line="source-file \"$config_home/devbox/tmux.conf\" # dotfiles-devbox-tmux"
+if ! grep -Fqx "$tmux_line" "$tmux_rc" 2>/dev/null; then
+  [[ ! -e $tmux_rc ]] || backup "$tmux_rc" tmux.conf
+  printf '\n%s\n' "$tmux_line" >> "$tmux_rc"
+fi
 
 # Preserve platform startup; source only the portable devbox shell additions.
 path_line='export PATH="$HOME/.local/bin:$PATH" # dotfiles-devbox'

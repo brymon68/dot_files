@@ -90,20 +90,31 @@ apt dependencies are retained; old versioned binaries are never deleted.
 
 ## Local tmux and devbox SSH
 
-The laptop `.zshrc` wraps `dbox ssh`: when `$TMUX` is set, it adds
-`--no-tmux`, so the local tmux owns scrolling and pane management. Outside
-local tmux, dbox keeps its default remote tmux behavior. Load the updated
-laptop `.zshrc` before using this wrapper. For an immediate workaround:
+Keep remote tmux enabled so sessions survive disconnections. Connect using:
 
 ```sh
-dbox ssh dev0 --no-tmux
+dbox --backend vm ssh dotfiles
 ```
 
-Use `dbox ssh dev0 --session work` or `dbox ssh dev0 --no-tmux=false` to
-explicitly request remote tmux, or `command dbox ssh dev0` to bypass the
-wrapper. Global flags placed before `ssh` also bypass the wrapper; add
-`--no-tmux` yourself in that form.
+The installer extends the remote tmux configuration with mouse support,
+100,000 lines of history for new panes, vi copy-mode keys, and Ctrl-B as its
+prefix. The laptop uses Ctrl-Space. Local tmux already forwards mouse events
+to applications that request them, including remote tmux with mouse enabled.
+Scroll over the remote pane without holding Shift.
 
-Without remote tmux, remote foreground work is not protected against SSH
-connection loss. For long-running jobs, explicitly use a remote session;
-connecting from a terminal outside local tmux avoids nesting in that case.
+- Remote history: Ctrl-B, then `[`. Scroll or use Page Up; `q` exits.
+- Local history: Ctrl-Space, then `[`. `q` exits.
+- If already in local copy mode, exit it before scrolling remote history.
+- Remote detach: Ctrl-B, then `d`. Reconnect to attach again.
+
+If you previously loaded the automatic no-tmux wrapper, run `unfunction dbox`
+in each existing laptop shell, or open a fresh shell after updating `.zshrc`.
+For a running remote tmux server, load the additions with:
+
+```sh
+tmux source-file "${XDG_CONFIG_HOME:-$HOME/.config}/devbox/tmux.conf"
+```
+
+Remove the line marked `# dotfiles-devbox-tmux` to undo tmux integration.
+Ubuntu package installation waits up to five minutes for automatic updates
+to release the package lock; if that expires, wait for updates and rerun.

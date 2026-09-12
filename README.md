@@ -124,7 +124,7 @@ Neovim, fix the underlying issue, and restart Neovim to retry missing tools.
 
 ## Connecting from local tmux
 
-The laptop `.zshrc` now adds `--no-tmux` to `dbox ssh` inside local tmux,
-avoiding nested scrolling. Explicit `--session` or `--no-tmux` options win.
-See [DEVBOX.md](DEVBOX.md#local-tmux-and-devbox-ssh) for overrides and the
-connection-loss tradeoff. The installer does not update your laptop `.zshrc`.
+Remote tmux stays enabled to preserve sessions across disconnections. The
+installer enables remote mouse scrolling and uses Ctrl-B remotely, while the
+laptop uses Ctrl-Space. See [DEVBOX.md](DEVBOX.md#local-tmux-and-devbox-ssh)
+for scrolling, copy mode, and updating already-open shells.
