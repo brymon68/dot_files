@@ -1,3 +1,4 @@
+autoload -U compinit; compinit -i -C
 # PATH AND ALIAS
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
@@ -44,7 +45,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # FZF
-export FZF_DEFAULT_COMMAND='fd --type f '
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort'"
 # theme skill: source generated fzf colors for current macOS appearance
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
@@ -53,9 +55,28 @@ else
   [ -f "$HOME/.config/fzf/theme-light.zsh" ] && source "$HOME/.config/fzf/theme-light.zsh"
 fi
 eval "$(fzf --zsh)"
+# Use Git's index to avoid walking the entire monorepo on every invocation.
+# NUL delimiters preserve spaces and newlines in filenames; Esc opens nothing.
+ff() {
+  local file source='fd --type f --hidden --exclude .git --print0'
+  local header='Enter: open in nvim'
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    source='git ls-files --cached -z'
+    header='Tracked files | Ctrl-U: include untracked files | Enter: open in nvim'
+  fi
+  # Keep fzf in the foreground with terminal input, as in its Zsh integration.
+  file=$(FZF_DEFAULT_COMMAND="$source" fzf < /dev/tty \
+    --read0 --print0 --no-multi --scheme=path --prompt='Files > ' \
+    --header="$header" --query="$*" \
+    --bind='ctrl-u:change-header(All non-ignored files | Enter: open in nvim)+reload(fd --type f --hidden --exclude .git --print0)'
+  ) || return 0
+  file=${file%$'\0'}
+  [[ -n "$file" ]] || return 0
+  command nvim -- "$file" < /dev/tty > /dev/tty
+}
 fzf-nvim-widget() {
-  local file=$(fzf < /dev/tty)
-  [[ -n "$file" ]] && nvim "$file"
+  zle -I
+  ff
   zle reset-prompt
 }
 zle -N fzf-nvim-widget
@@ -99,6 +120,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # bun completions
 [ -s "/Users/bryce.montano/.bun/_bun" ] && source "/Users/bryce.montano/.bun/_bun"
+
+# OpenAI shrc (if customising, comment out to prevent it getting readded)
+for file in "$HOME/.openai/shrc"/*; do
+    source "$file"
+done
+export API_REPO_PATH="/Users/cyber/code/openai/api"
+source ~/.api_shell_include
+source /Users/cyber/code/openai/api/applied-devtools/completions/applied_completions.zsh
 
 # Keep one tmux layer when connecting from a local tmux pane. An explicit
 # remote session or --no-tmux setting takes precedence (including =false).
