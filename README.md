@@ -128,3 +128,43 @@ Remote tmux stays enabled to preserve sessions across disconnections. The
 installer enables remote mouse scrolling and uses Ctrl-B remotely, while the
 laptop uses Ctrl-Space. See [DEVBOX.md](DEVBOX.md#local-tmux-and-devbox-ssh)
 for scrolling, copy mode, and updating already-open shells.
+
+## Portable config paths
+
+Shared config files live in `.config/` in the repository. Keep their contents
+tracked as regular files; do not commit symlinks into a machine's home or checkout.
+The Eza Tokyo Night theme is vendored from
+[eza-community/eza-themes](https://github.com/eza-community/eza-themes/blob/main/themes/tokyonight.yml)
+with its MIT license in `.config/eza/LICENSE`.
+
+The shell and theme generator respect `XDG_CONFIG_HOME` (default `$HOME/.config`).
+The shell also respects `XDG_DATA_HOME`, `XDG_CACHE_HOME`, and `XDG_STATE_HOME`.
+Set overrides before loading `.zshrc`, for example in `.zshenv`; XDG paths must
+be absolute. Apps launched from the desktop need the same environment settings
+if you use a non-default directory.
+
+Yadm installs the tracked `.config/` files under `$HOME/.config` directly.
+If you choose another `XDG_CONFIG_HOME`, arrange that config location separately;
+setting the variable does not move the tracked files.
+
+Home-based locations required by particular tools (such as `.bun` and
+macOS `Library/pnpm`) use `$HOME`.
+`API_REPO_PATH` defaults to `$HOME/code/openai/api`; override it in the untracked
+`~/.zsh-workrc` for another checkout. Missing work-only shell includes are skipped.
+
+## Machine-local authentication
+
+`~/.aws/` is intentionally untracked and ignored. Configure AWS independently
+on each machine using its appropriate authentication method. The personal
+1Password credential helper and its AWS profiles stay only on personal hosts
+and are not distributed by yadm.
+
+Put personal shell aliases and other machine-only settings in `~/.zshrc.local`.
+The shared `.zshrc` loads it if present, after the shared settings. Both this file
+and `~/.zsh-workrc` are ignored. Work hosts do not need either file.
+
+For existing checkouts that already track `.aws/config` and
+`.aws/op-credential-process.sh`, back up those files outside the checkout before
+pulling the commit that untracks them: Git may remove the old tracked copies.
+Restore only the files appropriate for that host afterward; they will be ignored.
+Untracking does not remove old versions from Git history.

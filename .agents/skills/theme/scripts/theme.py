@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """theme skill -- generation engine.
 
-Source of truth is ~/.config/theme/state.json: both slots (dark/light) hold a
-16-colour base16 palette. Every per-tool theme file is a pure function of that
+Source of truth is $XDG_CONFIG_HOME/theme/state.json (default ~/.config/theme/state.json).
+Both slots (dark/light) hold a 16-colour base16 palette. Every per-tool theme file is a pure function of that
 state and is fully regenerated on each run.
 
 base16 is derived from a Ghostty theme's 16-colour ANSI palette: ~10 colours map
@@ -30,8 +30,8 @@ import subprocess
 import sys
 import uuid
 
-HOME = os.path.expanduser("~")
-CONFIG = os.path.join(HOME, ".config")
+USER_HOME = os.path.expanduser("~")
+CONFIG = os.environ.get("XDG_CONFIG_HOME") or os.path.join(USER_HOME, ".config")
 STATE_DIR = os.path.join(CONFIG, "theme")
 STATE_FILE = os.path.join(STATE_DIR, "state.json")
 
@@ -394,7 +394,7 @@ def generate(state):
     build_bat_cache()
     print("Wrote:")
     for p in WRITTEN:
-        print("  " + p.replace(HOME, "~"))
+        print("  " + p.replace(USER_HOME, "~", 1))
 
 
 # --------------------------------------------------------------------------

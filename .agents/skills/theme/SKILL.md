@@ -16,12 +16,19 @@ All five configs are managed by **yadm**. The skill never commits.
 - **setup** — one-time refactor of the configs. Required before first use.
 - **apply** — theme one slot (dark or light). Normal use.
 
-Decide which: if `~/.config/theme/state.json` is **missing**, setup must run
+Decide which: if `$config_home/theme/state.json` is **missing**, setup must run
 first. If the user asks to theme something and state is missing, tell them
 setup will run first and confirm.
 
 `SKILL_DIR` below = the directory containing this file
-(`~/.claude/skills/theme`).
+(`~/.agents/skills/theme`). Resolve the config directory before running commands:
+
+```sh
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+```
+
+Use that directory for every config read and write. Setting `XDG_CONFIG_HOME`
+does not move files; use the existing configs in the selected directory.
 
 ---
 
@@ -40,12 +47,12 @@ User says e.g. *"set my **dark** theme to **black metal**"*.
      *Black Metal (Bathory)*) → list them and ask which.
    - No match → web-fetch `https://ghostty-style.vercel.app/config/<slug>`,
      extract the palette, write a Ghostty theme file to
-     `~/.config/ghostty/themes/<slug>` (lines: `palette = N=#hex` for 0–15,
+     `$config_home/ghostty/themes/<slug>` (lines: `palette = N=#hex` for 0–15,
      plus `background`, `foreground`, and `cursor-color` /
      `selection-background` if given). Use that path and `<slug>` as the name.
 3. **Apply:**
    ```
-   python3 SKILL_DIR/scripts/theme.py apply \
+   python3 "$SKILL_DIR/scripts/theme.py" apply \
      --slot <dark|light> --theme-file "<path>" --name "<Name>"
    ```
 4. **Report** (see *Reporting* below).
@@ -54,25 +61,28 @@ User says e.g. *"set my **dark** theme to **black metal**"*.
 
 ## Setup (one-time)
 
-Only when `~/.config/theme/state.json` is absent. **Confirm with the user
+Only when `$config_home/theme/state.json` is absent. **Confirm with the user
 first** — it rewrites hand-written config files. All targets are yadm-tracked,
 so `yadm diff` / `yadm checkout` can undo anything.
 
 1. **nvim colorscheme layer** — overwrite both files:
-   - `SKILL_DIR/templates/nvim-colorscheme.lua` → `~/.config/nvim/lua/plugins/colorscheme.lua`
-   - `SKILL_DIR/templates/nvim-windline.lua` → `~/.config/nvim/lua/plugins/windline.lua`
+   - `SKILL_DIR/templates/nvim-colorscheme.lua` → `$config_home/nvim/lua/plugins/colorscheme.lua`
+   - `SKILL_DIR/templates/nvim-windline.lua` → `$config_home/nvim/lua/plugins/windline.lua`
 
    These add `RRethy/base16-nvim` as a dependency and make each light/dark
    branch use base16 when that slot is skill-themed, else fall back to
    catppuccin/dawnfox.
 2. **Install the plugin:** `nvim --headless "+Lazy! install" +qa`
    (`install`, not `sync` — only fetch missing plugins, don't update others)
-3. **tmux** — in `~/.config/tmux/tmux.conf`, replace the macOS dark-mode status
+3. **tmux** — in `$config_home/tmux/tmux.conf`, replace the macOS dark-mode status
    block (from the `# Check for dark mode` comment through the end of the
-   *second* `if-shell`) with a single line, kept **before** the
+   *second* `if-shell`) with the following include, kept **before** the
    `run '.../tpm/tpm'` line:
    ```
-   source-file ~/.config/tmux/theme.conf
+   %if "#{==:#{XDG_CONFIG_HOME},}"
+   XDG_CONFIG_HOME="$HOME/.config"
+   %endif
+   source-file "$XDG_CONFIG_HOME/tmux/theme.conf"
    ```
 4. **fzf** — in `~/.zshrc` there are two `FZF_DEFAULT_OPTS` exports. Keep the
    first (static opts: layout/height/bind). **Delete the second** (the
@@ -81,17 +91,17 @@ so `yadm diff` / `yadm checkout` can undo anything.
    ```sh
    # theme skill: source generated fzf colors for current macOS appearance
    if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
-     [ -f "$HOME/.config/fzf/theme-dark.zsh" ] && source "$HOME/.config/fzf/theme-dark.zsh"
+     [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/theme-dark.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/theme-dark.zsh"
    else
-     [ -f "$HOME/.config/fzf/theme-light.zsh" ] && source "$HOME/.config/fzf/theme-light.zsh"
+     [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/theme-light.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/theme-light.zsh"
    fi
    ```
-5. **bat** — in `~/.config/bat/config`, replace the `--theme="..."` line with:
+5. **bat** — in `$config_home/bat/config`, replace the `--theme="..."` line with:
    ```
    --theme-dark="theme-dark"
    --theme-light="theme-light"
    ```
-6. **Seed state + generate everything:** `python3 SKILL_DIR/scripts/theme.py init`
+6. **Seed state + generate everything:** `python3 "$SKILL_DIR/scripts/theme.py" init`
    — this reads Ghostty's current `theme =` line, seeds both slots from those
    palettes (neither marked nvim-themed, so nvim keeps catppuccin/dawnfox until
    explicitly themed), writes all generated files, and runs `bat cache --build`.
@@ -108,7 +118,7 @@ so `yadm diff` / `yadm checkout` can undo anything.
    - **nvim** — restart (running instances keep the old theme)
    - **shells** — open a new shell (fzf reads macOS appearance at shell init,
      so a mid-session OS light/dark switch won't reach fzf until then)
-   - **tmux** — `tmux source-file ~/.config/tmux/tmux.conf`
+   - **tmux** — `tmux source-file "$config_home/tmux/tmux.conf"`
 
    `bat` needs nothing — `theme.py` already ran `bat cache --build`.
 
@@ -116,7 +126,7 @@ so `yadm diff` / `yadm checkout` can undo anything.
 
 ## How it works
 
-`scripts/theme.py` holds `~/.config/theme/state.json` (both slots' 16-color
+`scripts/theme.py` holds `$config_home/theme/state.json` (both slots' 16-color
 base16 palettes + names) as the single source of truth, and regenerates every
 output file from it on each run:
 
@@ -133,4 +143,4 @@ map directly, the 6 in-between shades are interpolated. See the `theme.py`
 header for the full mapping.
 
 `theme.py` subcommands: `init`, `apply`, `generate`, `show`. Run
-`python3 SKILL_DIR/scripts/theme.py show` to see the current dark/light themes.
+`python3 "$SKILL_DIR/scripts/theme.py" show` to see the current dark/light themes.

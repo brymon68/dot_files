@@ -1,17 +1,23 @@
+# Respect per-machine XDG locations; empty values use the standard defaults.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export STARSHIP_CONFIG="${STARSHIP_CONFIG:-$XDG_CONFIG_HOME/starship.toml}"
+
 autoload -U compinit; compinit -i -C
 # PATH AND ALIAS
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
-export PATH="$HOME/.config/tmux:$PATH"
-export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
+export PATH="$XDG_CONFIG_HOME/tmux:$PATH"
+export PATH="$XDG_DATA_HOME/bob/nvim-bin/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 alias set_gemini_api_key='export GEMINI_API_KEY=$(op item get tjtl55t4leyvf4gotqtap3yy3u --vault Private --fields "password" --reveal)'
 alias set_claude_api_key='export ANTHROPIC_API_KEY=$(op item get lcjd4fhsyglbwcye5yc4jdvr5y --vault Private --fields "password" --reveal)'
-alias set_aws_keys='export AWS_ACCESS_KEY_ID=$(op item get v6zzdqu7bbtg7n3sqyc3s4lzwu --vault Private --fields "AccessKeyId" --reveal) && export AWS_SECRET_ACCESS_KEY=$(op item get v6zzdqu7bbtg7n3sqyc3s4lzwu --vault Private --fields "SecretAccessKey" --reveal)'
-export HOMEBREW_BREWFILE=~/.config/Brewfile.txt
-export EZA_CONFIG_DIR=~/.config/eza
+export HOMEBREW_BREWFILE="${HOMEBREW_BREWFILE:-$HOME/Brewfile.txt}"
+export EZA_CONFIG_DIR="${EZA_CONFIG_DIR:-$XDG_CONFIG_HOME/eza}"
 
 
 # ZSH
@@ -50,9 +56,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=50% --bind 'f1:execute(bat {}),ctrl-y:execute-silent(echo {} | pbcopy)+abort'"
 # theme skill: source generated fzf colors for current macOS appearance
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
-  [ -f "$HOME/.config/fzf/theme-dark.zsh" ] && source "$HOME/.config/fzf/theme-dark.zsh"
+  [ -f "$XDG_CONFIG_HOME/fzf/theme-dark.zsh" ] && source "$XDG_CONFIG_HOME/fzf/theme-dark.zsh"
 else
-  [ -f "$HOME/.config/fzf/theme-light.zsh" ] && source "$HOME/.config/fzf/theme-light.zsh"
+  [ -f "$XDG_CONFIG_HOME/fzf/theme-light.zsh" ] && source "$XDG_CONFIG_HOME/fzf/theme-light.zsh"
 fi
 eval "$(fzf --zsh)"
 # Use Git's index to avoid walking the entire monorepo on every invocation.
@@ -89,14 +95,18 @@ eval "$(zoxide init zsh)"
 alias cat="bat"
 
 # pnpm
-export PNPM_HOME="/Users/$USER/Library/pnpm"
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PNPM_HOME="${PNPM_HOME:-$HOME/Library/pnpm}"
+else
+  export PNPM_HOME="${PNPM_HOME:-$XDG_DATA_HOME/pnpm}"
+fi
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/$USER/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 #yazi
 function y() {
@@ -119,12 +129,16 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # bun completions
-[ -s "/Users/bryce.montano/.bun/_bun" ] && source "/Users/bryce.montano/.bun/_bun"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 # OpenAI shrc (if customising, comment out to prevent it getting readded)
-for file in "$HOME/.openai/shrc"/*; do
-    source "$file"
+for file in "$HOME/.openai/shrc"/*(N); do
+    [[ ! -f "$file" ]] || source "$file"
 done
-export API_REPO_PATH="/Users/cyber/code/openai/api"
-source ~/.api_shell_include
-source /Users/cyber/code/openai/api/applied-devtools/completions/applied_completions.zsh
+# Override API_REPO_PATH in ~/.zsh-workrc on machines with another checkout.
+export API_REPO_PATH="${API_REPO_PATH:-$HOME/code/openai/api}"
+[[ ! -r "$HOME/.api_shell_include" ]] || source "$HOME/.api_shell_include"
+[[ ! -r "$API_REPO_PATH/applied-devtools/completions/applied_completions.zsh" ]] || source "$API_REPO_PATH/applied-devtools/completions/applied_completions.zsh"
+
+# Optional per-machine settings and personal aliases (never tracked).
+[[ ! -r "$HOME/.zshrc.local" ]] || source "$HOME/.zshrc.local"

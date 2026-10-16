@@ -1,3 +1,8 @@
 *.DS_Store*
 *.config/tmux/plugins*
 .gitconfig.local
+
+# Authentication and shell customizations belong to each machine.
+/.aws/
+/.zshrc.local
+/.zsh-workrc
